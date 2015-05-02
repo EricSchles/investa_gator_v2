@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect,request,url_for
-# from data_grab import Scraper
-# import pickle
+import pickle
 # import investigate
+from crawler.data_grab import Scraper
 from web import app
 
 @app.route("/",methods=["GET","POST"])
