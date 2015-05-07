@@ -228,8 +228,6 @@ class Scraper:
                     translated_title=datum["translated_title"],
                     subjectivity=datum["subjectivity"],
                     network=json.dumps(datum["network"]),
-		    blarg="anything",
-		    hello="butts"
                 )
 
 if __name__ == '__main__':
