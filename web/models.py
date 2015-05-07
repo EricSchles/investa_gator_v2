@@ -4,9 +4,33 @@ from sqlalchemy import Column, ForeignKey, Integer, String, Boolean,Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
- 
+from sqlalchemy.orm import sessionmaker
+
 Base = declarative_base()
- 
+
+#To Do: move this to db_helpers
+class CRUD:
+    def __init__(self,db,table=None):
+        self.table = table
+        self.db = db
+        engine = create_engine(db)
+        Session = sessionmaker(bind=engine)
+        self.session = Session()
+
+    def update_table(self,table):
+        self.table = table
+        
+    def update_db(self,db):
+        self.db = db
+        engine = create_engine(db)
+        Session = sessionmaker(bind=engine)
+        self.session = Session()
+
+    def insert(self,obj):
+        self.session.add(obj)
+        self.session.commit()
+
+        
 class KeyWords(Base):
     __tablename__ = 'keywords'
     id = Column(Integer, primary_key=True)
