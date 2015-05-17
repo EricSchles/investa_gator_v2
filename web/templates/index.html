@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<a href="/static/img/joke.jpg"><img height="250px" width="auto" src="/static/img/alligator.jpg"></a>
+<form method="post" action="{{url_for('investigator')}}">
+<table >
+  <tr>
+   <td><input type="radio" value="long" name="long_running"> Run a long running investigation</td>
+  </tr>
+  <tr>
+   <td> <input type="radio" value="short" name="long_running"> Run a short investigation
+   </td>
+  </tr>
+  <tr>
+   <td> <label>Enter a password to start an investigation</label>
+  </tr>
+  <tr>   
+   <td> <input type="password" name="password"></input></td>
+  </tr>
+  <tr>
+   <td> <input type="submit"> </td>
+  </tr>
+ </table>
+</form>
+<br />
+<form method="post" action="{{url_for('run')}}">
+ 
+ <label>Test out the scraper</label><br />
+<input type="submit" value="test run">
+</form>
+
+<h3><a href="/add">Add some data</a></h3>
+</body>
+</html>

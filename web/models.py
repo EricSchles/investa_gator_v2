@@ -9,14 +9,19 @@ from sqlalchemy.orm import sessionmaker
 Base = declarative_base()
 
 #To Do: move this to db_helpers
+
 class CRUD:
-    def __init__(self,db,table=None):
+    def __init__(self,db,model_obj=None,table=None):
         self.table = table
         self.db = db
         engine = create_engine(db)
         Session = sessionmaker(bind=engine)
         self.session = Session()
+        self.model_obj = model_obj
 
+    def update_model_obj(self,model_obj):
+        self.model_obj = model_obj
+        
     def update_table(self,table):
         self.table = table
         
@@ -30,7 +35,15 @@ class CRUD:
         self.session.add(obj)
         self.session.commit()
 
-        
+    def get_all(self):
+        q = self.session.query(self.model_obj)
+        return q.all()
+
+class PhoneNumbers(Base):
+    __tablename__ = 'phone_numbers'
+    id = Column(Integer, primary_key=True)
+    phone_number = Column(String(500), nullable=False)
+    
 class KeyWords(Base):
     __tablename__ = 'keywords'
     id = Column(Integer, primary_key=True)
@@ -44,12 +57,13 @@ class TrainData(Base):
 class Ads(Base):
     __tablename__ = 'ads'
     id = Column(Integer,primary_key=True)
-    number = Column(String(100),nullable=False)
+    phone_number = Column(String(100),nullable=False)
     title = Column(String(400),nullable=False)
     text_body = Column(String(10000),nullable=True)
     link = Column(String(10000),nullable=False)
     scraped_at = Column(String(10000),nullable=False)
     flagged_for_child_trafficking = Column(Boolean(False),nullable=False)
+    photos = Column(String(10000),nullable=True) # ToDo, look up how to do this correctly.
     flagged_for_trafficking = Column(Boolean(False),nullable=False)
     language = Column(String(1000),nullable=False)
     polarity = Column(Float(0),nullable=False)
@@ -57,7 +71,9 @@ class Ads(Base):
     translated_title=Column(String(10000),nullable=False)
     subjectivity=Column(Float(0),nullable=False)
     network=Column(String(10000),nullable=False)
-
+    posted_at = Column(String(10000),nullable=True) #ToDo, look up how to do this correctly - make use of DateTime
+    flagged_for_trafficking = Column(Boolean(False),nullable=False)
+    
     
 if __name__ == '__main__':
     

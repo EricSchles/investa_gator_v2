@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect,request,url_for
 import pickle
 # import investigate
-from crawler.data_grab import Scraper
+from crawler import Scraper
 from web import app
 
 @app.route("/",methods=["GET","POST"])
@@ -60,3 +60,31 @@ def add_data():
         pickle.dump( train, open("train.p","wb") )
     return redirect(url_for("index"))
 
+#add routes for visualization of existing datasources
+#things to do:
+#1) word cloud
+#2) frequency of words with a histogram
+#3) network graph
+#4) number of successful scrapes and number of unsucessful scrapes, for parameter tuning
+#5) add google automation - search for phone numbers, email addresses, store results
+#6) generate bank requests?
+
+#machine learning stuff:
+#add automated analysis
+#1) based on historical data, say how likely this add is trafficking
+#2) how likely this person is a prostitute
+#3) likelihood of age, ethnicity, gender, average number of years they've been trafficked
+#4) were they brought into this country?
+#5) Do they have children? Do they have children with their trafficker?
+#6) likelihood of money laundering
+
+#modeling of financial data
+#1) prove money laundering from bank statements
+
+#optimal legislative strategy
+#A set of parameters that indicate the success of a given
+#case.  Therefore maximal resources are placed into cases as
+#more information is discovered.  Thus leading to the maximum number
+#of convictions.
+
+#optimal decision making will be made based on past history

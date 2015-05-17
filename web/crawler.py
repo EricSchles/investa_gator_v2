@@ -7,18 +7,17 @@ import datetime
 import json
 from textblob.classifiers import NaiveBayesClassifier as NBC
 from textblob.classifiers import DecisionTreeClassifier as DTC
-
 from textblob import TextBlob
 import os
 import pickle
+from models import CRUD,Ads,TrainData,KeyWords
 
-#a web scraper integrated with syncano
+
+
+#a web scraper, for local computation
+#At present, this seems to work fine
 class Scraper:
     def __init__(self,
-                 instance_name="white-sun-672290",
-                 api_key="92f4c3ae210cee23a24c03f892574fa9957cdf30",
-                 project_id="6128",
-                 collection_id="18661",
                  base_urls=[
                      "http://newyork.backpage.com/FemaleEscorts/",
                      "http://newyork.backpage.com/BodyRubs/",
@@ -33,10 +32,6 @@ class Scraper:
                  trafficking_keywords=[]
     ):
         self.base_urls = base_urls
-        self.instance_name = instance_name
-        self.api_key = api_key
-        self.project_id = project_id
-        self.collection_id = collection_id
         self.child_keywords = child_keywords
         self.trafficking_keywords = trafficking_keywords
 
@@ -54,6 +49,15 @@ class Scraper:
         text = text.replace("ZERO","0")
         return text
 
+    def verify_phone_number(self,number):
+        data = pickle.load(open("twilio.creds","r"))
+        r = requests.get("http://lookups.twilio.com/v1/PhoneNumbers/5165789423",auth=data)
+        if "status_code" in json.loads(r.content).keys():
+            return False
+        else:
+            return True
+        
+    #add twilio api here
     def phone_number_parse(self,values):
         text = self.letter_to_number(values["text_body"])
         phone = []
@@ -139,7 +143,7 @@ class Scraper:
             values["language"] = body_blob.detect_language() #requires the internet - makes use of google translate api
             values["polarity"] = body_blob.polarity
             values["subjectivity"] = body_blob.sentiment[1]
-            translated = translator or values["language"] == "es"
+            translated = translator or values["language"] == "es" #this is bad, fix this.
             if translated:
                 values["translated_body"] = body_blob.translate(from_lang="es")
                 values["translated_title"] = title_blob.translate(from_lang="es")
@@ -149,35 +153,42 @@ class Scraper:
             text_body = values["text_body"]
             title = values["title"]
 
+            #why is this a boolean?
             if translated:
                 text_body = values["translated_body"]
                 title = values["translated_title"]
 
             if auto_learn:
-                train = pickle.load(open("train.p","rb"))
+                train_crud = CRUD("sqlite:///database.db",TrainData,"training_data")
+                train = train_crud.get_all() 
+                train = [(elem.text,"trafficking") for elem in train]
+                #to do: add data for not trafficking
                 cls = []
                 cls.append(NBC(train))
                 cls.append(DTC(train))
-                #increase this number
+
+                #increase this number, replace this with something reasonable.
                 trk_count = 0
                 for cl in cls:
                     if cl.classify(text_body) == "trafficking":
                         trk_count += 1
 
+                #this is hacky at best
                 if float(trk_count)/len(cls) > 0.5:
-                    train = pickle.load(open("train.p","rb"))
-                    train.append((values["text_body"],"trafficking") )
-                    pickle.dump(train,open("train.p","wb"))
+                    train_data = TrainData()
+                    train_data.text = values["text_body"]
+                    train_crud.insert(train_data)
                     values["trafficking"] = "found"
                 else:
                     values["trafficking"] = "not_found"
-                #To do set up postmark here.
-                #Documentation: https://devcenter.heroku.com/articles/postmark
-                #even more docs: https://postmarkapp.com/servers/645009/get_started
-                
+                #To do set up google alerts here
+                #This should be easy..
             else:
                 values["trafficking"] = "not_found"
-                           
+
+            #why am I doing this?
+            #the point of this is to keep track of keywords that are passed in from the user.
+            #perhaps this should stay?
             values["child_urls"] = []
             for keyword in self.child_keywords:
                 if keyword in text_body:
@@ -192,19 +203,26 @@ class Scraper:
                 elif keyword in title:
                     values["trafficking_urls"].append(values["link"])
 
+            #this looks fine...
             values["new_keywords"].append(self.pull_keywords(text_body))
             values["new_keywords"].append(self.pull_keywords(title))
             values = self.phone_number_parse(values)
+            #this might need to stay until I can figure out how to
+            #pass python datastructures to postgres...
+            #also, there maybe another way to deal with this generally....perhaps a database that acts like a dictionary?
+            #perhaps I use mongo here...
             numbers = pickle.load(open("numbers.p","rb"))
             values["network"] = []
             for network in numbers.keys():
                 if values["phone_number"] in numbers[network]:
                     values["network"].append(network)
             data.append(values)
-        self.save_ads(data)
+        self.save_ads(data)#to do, replace this with database calls
         return data
 
     def pull_keywords(self,text):
+        #to do, get a list of common words we don't care about and use those instead of this terrible hacking thing
+        #this is terrible, fix it!!!
         text = text.lower()
         ignore_words = ["and","or","to","an","to","like","all","am","your","I","who"," ",'']
         new_text = []
@@ -212,33 +230,29 @@ class Scraper:
             if not word in ignore_words:
                 new_text.append(word)
         return new_text
-    
+
     def save_ads(self,data):
-        SyncanoApi = client.SyncanoApi
-        with SyncanoApi(self.instance_name,self.api_key) as syncano:
-            for datum in data:
-                syncano.data_new(
-                    self.project_id,
-                    collection_id=self.collection_id,
-                    title=datum["title"],
-                    phone_number=datum["phone_number"],
-                    text_body=datum["text_body"],
-                    text=json.dumps(datum["images"]),
-                    link=datum["link"],
-                    posted_at = datum["posted_at"],
-                    scraped_at=datum["scraped_at"],
-                    flagged_for_child_trafficking=json.dumps(datum["child_urls"]),
-                    flagged_for_trafficking=json.dumps(datum["trafficking_urls"]),
-                    language=datum["language"],
-                    polarity=datum["polarity"],
-                    translated_body=datum["translated_body"],
-                    translated_title=datum["translated_title"],
-                    subjectivity=datum["subjectivity"],
-                    network=json.dumps(datum["network"]),
-		    blarg="anything",
-		    hello="butts"
-                )
-    
+        crud = CRUD("sqlite:///database.db",table="ads")
+        
+        for datum in data:
+            ad = Ads()
+            ad.title=datum["title"],
+            ad.phone_number=datum["phone_number"],
+            ad.text_body=datum["text_body"],
+            ad.photos=json.dumps(datum["images"]),#change this so I'm saving actual pictures to the database.
+            ad.link=datum["link"],
+            ad.posted_at = datum["posted_at"],
+            ad.scraped_at=datum["scraped_at"],
+            ad.flagged_for_child_trafficking=json.dumps(datum["child_urls"]),
+            ad.flagged_for_trafficking=json.dumps(datum["trafficking_urls"]),
+            ad.language=datum["language"],
+            ad.polarity=datum["polarity"],
+            ad.translated_body=datum["translated_body"],
+            ad.translated_title=datum["translated_title"],
+            ad.subjectivity=datum["subjectivity"],
+            ad.network=json.dumps(datum["network"]),
+            crud.insert(ad)
+            
 if __name__ == '__main__':
     scraper = Scraper(base_urls=["http://newyork.backpage.com/FemaleEscorts/"])
     data = scraper.scrape()
