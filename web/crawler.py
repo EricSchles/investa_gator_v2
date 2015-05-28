@@ -57,12 +57,13 @@ class Scraper:
         else:
             return True
         
-    #add twilio api here
     def phone_number_parse(self,values):
+        values["phone_number"] = []
         text = self.letter_to_number(values["text_body"])
         phone = []
         counter = 0
         found = False
+        possible_numbers = []
         for ind,letter in enumerate(text):
             if letter.isdigit():
                 phone.append(letter)
@@ -70,19 +71,20 @@ class Scraper:
             else:
                 if found:
                     counter += 1
-                if counter > 13 and found:
+                if counter > 15 and found:
                     phone = []
                     counter = 0
                     found = False
 
             if len(phone) == 10 and phone[0] != '1':
-                values["phone_number"] = ''.join(phone)
-                return values
+                possible_numbers.append(''.join(phone))
+                phone = [] #consider handling measurements
             if len(phone) == 11 and phone[0] == '1':
-                values["phone_number"] = ''.join(phone)
-                return values
-
-        values["phone_number"] = ''
+                possible_numbers.append(''.join(phone))
+                phone = [] #consider handling measurements
+        for number in possible_numbers:
+            if self.verify_phone_number(number):
+                values["phone_number"].append(number)
         return values
     
     def scrape(self,links=[],auto_learn=False,long_running=False,translator=False):
@@ -210,7 +212,7 @@ class Scraper:
             #this might need to stay until I can figure out how to
             #pass python datastructures to postgres...
             #also, there maybe another way to deal with this generally....perhaps a database that acts like a dictionary?
-            #perhaps I use mongo here...
+            #perhaps I could use mongo here...
             numbers = pickle.load(open("numbers.p","rb"))
             values["network"] = []
             for network in numbers.keys():
