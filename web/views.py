@@ -3,7 +3,7 @@ import pickle
 # import investigate
 from crawler import Scraper
 from web import app
-
+from multiprocessing import Process
 scraper = Scraper()
 
 @app.route("/",methods=["GET","POST"])
@@ -19,8 +19,11 @@ def run():
 
 @app.route("/investigate",methods=["GET","POST"])
 def investigator():
-    scraper.investigate()
-    
+    if request.method == "POST":
+        place = request.form.get("place")
+        scraper.update_place(place)
+        investigate = Process(target=scraper.investigate())
+        investigate.run()
     return redirect(url_for("index"))
 
 @app.route("/add",methods=["GET","POST"])
