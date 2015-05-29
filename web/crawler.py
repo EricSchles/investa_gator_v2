@@ -143,10 +143,13 @@ class Scraper:
 
     def investigate(self):
         
-        #This should be where the given ads are compared against scrapes from the backpage - API
-        for url in self.base_url:
-        train_crud = CRUD("sqlite:///database.db",TrainData,"training_data")
-        train = train_crud.get_all() 
+        data = self.scrape(self.base_urls)
+        for datum in data:
+        train_crud = CRUD("sqlite:///database.db",Ads,"ads")
+        #
+        dummy_crud = CRUD("sqlite:///database.db",TrainData,"training_data")
+        train = train_crud.get_all()
+        dummy = dummy_crud.get_all()
         train = [(elem.text,"trafficking") for elem in train]
         #to do: add data for not trafficking
         cls = []
