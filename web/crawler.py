@@ -17,11 +17,20 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 #a web scraper, for local computation
 #At present, this seems to work fine
 class Scraper:
-    def __init__(self,place=None,):
+    def __init__(self,place=None):
         if place:
             self.base_urls = self.map_place(place)
         else:
-            self.base_urls = base_urls
+            self.base_urls = [
+                "http://newyork.backpage.com/FemaleEscorts/",
+                "http://newyork.backpage.com/BodyRubs/",
+                "http://newyork.backpage.com/Strippers/",
+                "http://newyork.backpage.com/Domination/",
+                "http://newyork.backpage.com/TranssexualEscorts/",
+                "http://newyork.backpage.com/MaleEscorts/",
+                "http://newyork.backpage.com/Datelines/",
+                "http://newyork.backpage.com/AdultJobs/"
+            ]
 
     def update_place(self,place):
         self.base_urls = self.map_place(place)
@@ -76,6 +85,7 @@ class Scraper:
             "watertown":self.generate_pages("http://watertown.backpage.com/"),
             "westchester":self.generate_pages("http://watertown.backpage.com/")
         }
+        return places[place]
         
     def letter_to_number(self,text):
         text= text.upper()
