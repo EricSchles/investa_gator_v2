@@ -145,12 +145,12 @@ class Scraper:
         
         data = self.scrape(self.base_urls)
         for datum in data:
-        train_crud = CRUD("sqlite:///database.db",Ads,"ads")
-        #getting dummy data from http://www.dummytextgenerator.com/#jump
-        dummy_crud = CRUD("sqlite:///database.db",TrainData,"training_data")
-        train = train_crud.get_all()
-        dummy = dummy_crud.get_all()
-        train = [(elem.text,"trafficking") for elem in train]
+            train_crud = CRUD("sqlite:///database.db",Ads,"ads")
+            #getting dummy data from http://www.dummytextgenerator.com/#jump
+            dummy_crud = CRUD("sqlite:///database.db",TrainData,"training_data")
+            train = train_crud.get_all()
+            dummy = dummy_crud.get_all()
+            train = [(elem.text,"trafficking") for elem in train] + [(elem.text,"not trafficking" for elem in dummy]
         #to do: add data for not trafficking
         cls = []
         #make use of tdf-idf here
