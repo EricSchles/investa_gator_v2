@@ -150,24 +150,17 @@ class Scraper:
             dummy_crud = CRUD("sqlite:///database.db",TrainData,"training_data")
             train = train_crud.get_all()
             dummy = dummy_crud.get_all()
-            train = [(elem.text,"trafficking") for elem in train] + [(elem.text,"not trafficking" for elem in dummy]
-        #to do: add data for not trafficking
-        cls = []
-        #make use of tdf-idf here
-        cls.append(NBC(train))
-        cls.append(DTC(train))
+            train = [(elem.text,"trafficking") for elem in train] + [(elem.text,"not trafficking") for elem in dummy]
+            cls = []
+            #make use of tdf-idf here
+            cls.append(NBC(train))
+            cls.append(DTC(train))
+            for cl in cls:
+                if cl.classify(datum["text_body"]) == "trafficking":
+                    self.save_ads([datum])
+            
 
-        #increase this number, replace this with something reasonable.
-        trk_count = 0
-        for cl in cls:
-            if cl.classify(text_body) == "trafficking":
-                trk_count += 1
-                
-            
-        train_data = TrainData()
-        train_data.text = values["text_body"]
-        train_crud.insert(train_data)
-            
+                    
     def scrape(self,links=[],translator=False):
         responses = []
         values = {}
@@ -251,7 +244,6 @@ class Scraper:
             ad.translated_title=datum["translated_title"],
             ad.subjectivity=datum["subjectivity"],
             crud.insert(ad)
-    
         
 if __name__ == '__main__':
     scraper = Scraper(base_urls=["http://newyork.backpage.com/FemaleEscorts/"])
