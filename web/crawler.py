@@ -41,7 +41,7 @@ class Scraper:
     #ToDo, iterate to pages further back in time.
     def generate_pages(self,url):
         urls = []
-        endings = [
+        init_endings = [
             "FemaleEscorts/",
             "BodyRubs/",
             "Strippers/",
@@ -51,8 +51,13 @@ class Scraper:
             "Datelines/",
             "AdultJobs/"
         ]
+        init_urls = []
         for ending in endings:
-            urls.append(url+ending)
+            init_urls.append(url+ending)
+        for i in xrange(1,6):
+            for url in init_urls:
+                urls.append(url+"?page="+str(i))
+        urls = init_urls + urls
         return urls
     
     def map_place(self,place):
@@ -180,6 +185,7 @@ class Scraper:
                 except requests.exceptions.ConnectionError:
                     print "hitting connection error"
                     continue
+                
         for r in responses:
             text = r.text
             html = lxml.html.fromstring(text)
