@@ -17,19 +17,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 #a web scraper, for local computation
 #At present, this seems to work fine
 class Scraper:
-    def __init__(self,
-                 place=None,
-                 base_urls=[
-                     "http://newyork.backpage.com/FemaleEscorts/",
-                     "http://newyork.backpage.com/BodyRubs/",
-                     "http://newyork.backpage.com/Strippers/",
-                     "http://newyork.backpage.com/Domination/",
-                     "http://newyork.backpage.com/TranssexualEscorts/",
-                     "http://newyork.backpage.com/MaleEscorts/",
-                    "http://newyork.backpage.com/Datelines/",
-                     "http://newyork.backpage.com/AdultJobs/"
-                 ],
-    ):
+    def __init__(self,place=None,):
         if place:
             self.base_urls = self.map_place(place)
         else:
@@ -246,8 +234,8 @@ class Scraper:
             crud.insert(ad)
         
 if __name__ == '__main__':
-    scraper = Scraper(base_urls=["http://newyork.backpage.com/FemaleEscorts/"])
-    data = scraper.scrape(links=["http://newyork.backpage.com/FemaleEscorts/"])
+    scraper = Scraper(place="new york")
+    data = scraper.initial_scrape(links=["http://newyork.backpage.com/FemaleEscorts/"])
     print data
     
     
