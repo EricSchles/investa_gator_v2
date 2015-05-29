@@ -158,8 +158,8 @@ class Scraper:
             for cl in cls:
                 if cl.classify(datum["text_body"]) == "trafficking":
                     self.save_ads([datum])
-            
-
+        time.sleep(700) # wait ~ 12 minutes
+        self.investigate()
                     
     def scrape(self,links=[],translator=False):
         responses = []
