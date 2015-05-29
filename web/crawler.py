@@ -135,29 +135,59 @@ class Scraper:
             if self.verify_phone_number(number):
                 phone_numbers.append(number)
         return phone_numbers
-    
+
+    def investigate(self):
+        #This should be where the given ads are compared against scrapes from the backpage - API
+        
+                
+            train_crud = CRUD("sqlite:///database.db",TrainData,"training_data")
+            train = train_crud.get_all() 
+            train = [(elem.text,"trafficking") for elem in train]
+            #to do: add data for not trafficking
+            cls = []
+            #make use of tdf-idf here
+            cls.append(NBC(train))
+            cls.append(DTC(train))
+
+            #increase this number, replace this with something reasonable.
+            trk_count = 0
+            for cl in cls:
+                if cl.classify(text_body) == "trafficking":
+                    trk_count += 1
+
+            #this is hacky at best
+            if float(trk_count)/len(cls) > 0.5:
+                train_data = TrainData()
+                train_data.text = values["text_body"]
+                train_crud.insert(train_data)
+                values["trafficking"] = "found"
+            else:
+                values["trafficking"] = "not_found"
+            #To do set up google alerts here
+            #This should be easy..
+        else:
+            values["trafficking"] = "not_found"
+
     def scrape(self,links=[],translator=False):
         responses = []
         values = {}
         data = []
+        
+        for base_url in self.base_urls:
+            r = requests.get(base_url)
+            text = unidecode(r.text)
+            html = lxml.html.fromstring(text)
 
-        if links == []:
-            for base_url in self.base_urls:
-                r = requests.get(base_url)
-                text = unidecode(r.text)
-                html = lxml.html.fromstring(text)
-
-                links = html.xpath("//div[@class='cat']/a/@href")
-                for link in links:
-                    if len(self.base_urls) > 1 or len(self.base_urls[0]) > 3:
-                        time.sleep(random.randint(5,27))
-                    try:
-                        responses.append(requests.get(link))
-                        print link
-                    except requests.exceptions.ConnectionError:
-                        print "hitting connection error"
-                        continue
-
+            links = html.xpath("//div[@class='cat']/a/@href")
+            for link in links:
+                if len(self.base_urls) > 1 or len(self.base_urls[0]) > 3:
+                    time.sleep(random.randint(5,27))
+                try:
+                    responses.append(requests.get(link))
+                    print link
+                except requests.exceptions.ConnectionError:
+                    print "hitting connection error"
+                    continue
         for r in responses:
             text = r.text
             html = lxml.html.fromstring(text)
@@ -188,48 +218,7 @@ class Scraper:
                 values["translated_title"] = "none"
             text_body = values["text_body"]
             title = values["title"]
-
-            if auto_learn:
-                
-                train_crud = CRUD("sqlite:///database.db",TrainData,"training_data")
-                train = train_crud.get_all() 
-                train = [(elem.text,"trafficking") for elem in train]
-                #to do: add data for not trafficking
-                cls = []
-                #make use of tdf-idf here
-                cls.append(NBC(train))
-                cls.append(DTC(train))
-
-                #increase this number, replace this with something reasonable.
-                trk_count = 0
-                for cl in cls:
-                    if cl.classify(text_body) == "trafficking":
-                        trk_count += 1
-
-                #this is hacky at best
-                if float(trk_count)/len(cls) > 0.5:
-                    train_data = TrainData()
-                    train_data.text = values["text_body"]
-                    train_crud.insert(train_data)
-                    values["trafficking"] = "found"
-                else:
-                    values["trafficking"] = "not_found"
-                #To do set up google alerts here
-                #This should be easy..
-            else:
-                values["trafficking"] = "not_found"
-
-
             values["phone_numbers"] = self.phone_number_parse(values)
-            #this might need to stay until I can figure out how to
-            #pass python datastructures to postgres...
-            #also, there maybe another way to deal with this generally....perhaps a database that acts like a dictionary?
-            #perhaps I could use mongo here...
-            numbers = pickle.load(open("numbers.p","rb"))
-            values["network"] = []
-            for network in numbers.keys():
-                if values["phone_number"] in numbers[network]:
-                    values["network"].append(network)
             data.append(values)
         self.save_ads(data)#to do, replace this with database calls
         return data
@@ -245,20 +234,17 @@ class Scraper:
         for datum in data:
             ad = Ads()
             ad.title=datum["title"],
-            ad.phone_number=datum["phone_number"],
+            ad.phone_numbers=json.dumps(datum["phone_numbers"]),
             ad.text_body=datum["text_body"],
             ad.photos=json.dumps(datum["images"]),#change this so I'm saving actual pictures to the database.
             ad.link=datum["link"],
             ad.posted_at = datum["posted_at"],
             ad.scraped_at=datum["scraped_at"],
-            ad.flagged_for_child_trafficking=json.dumps(datum["child_urls"]),
-            ad.flagged_for_trafficking=json.dumps(datum["trafficking_urls"]),
             ad.language=datum["language"],
             ad.polarity=datum["polarity"],
             ad.translated_body=datum["translated_body"],
             ad.translated_title=datum["translated_title"],
             ad.subjectivity=datum["subjectivity"],
-            ad.network=json.dumps(datum["network"]),
             crud.insert(ad)
             
 if __name__ == '__main__':

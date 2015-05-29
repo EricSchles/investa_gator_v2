@@ -57,14 +57,12 @@ class TrainData(Base):
 class Ads(Base):
     __tablename__ = 'ads'
     id = Column(Integer,primary_key=True)
-    phone_number = Column(String(100),nullable=False)
+    phone_numbers = Column(String(10000),nullable=True)
     title = Column(String(400),nullable=False)
     text_body = Column(String(10000),nullable=True)
     link = Column(String(10000),nullable=False)
     scraped_at = Column(String(10000),nullable=False)
-    flagged_for_child_trafficking = Column(Boolean(False),nullable=False)
     photos = Column(String(10000),nullable=True) # ToDo, look up how to do this correctly.
-    flagged_for_trafficking = Column(Boolean(False),nullable=False)
     language = Column(String(1000),nullable=False)
     polarity = Column(Float(0),nullable=False)
     translated_body=Column(String(10000),nullable=True)
@@ -72,7 +70,6 @@ class Ads(Base):
     subjectivity=Column(Float(0),nullable=False)
     network=Column(String(10000),nullable=False)
     posted_at = Column(String(10000),nullable=True) #ToDo, look up how to do this correctly - make use of DateTime
-    flagged_for_trafficking = Column(Boolean(False),nullable=False)
     
     
 if __name__ == '__main__':
