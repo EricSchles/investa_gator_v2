@@ -62,10 +62,10 @@ class Scraper:
     
     def map_place(self,place):
         places = {
-            "alabama":self.generate_pages("http://alabama.backpage.com/")
+            "alabama":self.generate_pages("http://alabama.backpage.com/"),
             "manhattan":self.generate_pages("http://manhattan.backpage.com/"),
             "new york":self.generate_pages("http://newyork.backpage.com/"),
-            "new york city":self.generate_pages("http://manhattan.backpage.com/")+self.generate_pages("http://statenisland.backpage.com/")+self.generate_pages("http://queens.backpage.com/")+self.generate_pages("http://brooklyn.backpage.com/")+self.generate_pages("http://bronx.backpage.com/")
+            "new york city":self.generate_pages("http://manhattan.backpage.com/")+self.generate_pages("http://statenisland.backpage.com/")+self.generate_pages("http://queens.backpage.com/")+self.generate_pages("http://brooklyn.backpage.com/")+self.generate_pages("http://bronx.backpage.com/"),
             "buffalo":self.generate_pages("http://buffalo.backpage.com/"),
             "albany new york":self.generate_pages("http://albany.backpage.com/"),
             "binghamton":self.generate_pages("http://binghamton.backpage.com/"),
@@ -159,7 +159,7 @@ class Scraper:
                 if cl.classify(datum["text_body"]) == "trafficking":
                     self.save_ads([datum])
         time.sleep(700) # wait ~ 12 minutes
-        self.investigate()
+        self.investigate() #this is an infinite loop, which I am okay with.
                     
     def scrape(self,links=[],translator=False):
         responses = []
@@ -231,22 +231,23 @@ class Scraper:
         
         for datum in data:
             ad = Ads()
-            ad.title=datum["title"],
-            ad.phone_numbers=json.dumps(datum["phone_numbers"]),
-            ad.text_body=datum["text_body"],
-            ad.photos=json.dumps(datum["images"]),#change this so I'm saving actual pictures to the database.
-            ad.link=datum["link"],
-            ad.posted_at = datum["posted_at"],
-            ad.scraped_at=datum["scraped_at"],
-            ad.language=datum["language"],
-            ad.polarity=datum["polarity"],
-            ad.translated_body=datum["translated_body"],
-            ad.translated_title=datum["translated_title"],
-            ad.subjectivity=datum["subjectivity"],
+            ad.title=datum["title"]
+            ad.phone_numbers=json.dumps(datum["phone_numbers"])
+            ad.text_body=datum["text_body"]
+            ad.photos=json.dumps(datum["images"])#change this so I'm saving actual pictures to the database.
+            ad.link=datum["link"]
+            ad.posted_at = datum["posted_at"]
+            ad.scraped_at=datum["scraped_at"]
+            ad.language=datum["language"]
+            ad.polarity=datum["polarity"]
+            ad.translated_body=datum["translated_body"]
+            ad.translated_title=datum["translated_title"]
+            ad.subjectivity=datum["subjectivity"]
             crud.insert(ad)
         
 if __name__ == '__main__':
     scraper = Scraper(base_urls=["http://newyork.backpage.com/FemaleEscorts/"])
-    data = scraper.scrape()
+    data = scraper.scrape(links=["http://newyork.backpage.com/FemaleEscorts/"])
+    print data
     
     
