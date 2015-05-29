@@ -29,7 +29,7 @@ class Scraper:
     #ToDo, iterate to pages further back in time.
     def generate_pages(self,url):
         urls = []
-        init_endings = [
+        endings = [
             "FemaleEscorts/",
             "BodyRubs/",
             "Strippers/",
