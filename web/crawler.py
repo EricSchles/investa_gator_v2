@@ -107,7 +107,7 @@ class Scraper:
             return True
         
     def phone_number_parse(self,values):
-        values["phone_number"] = []
+        phone_numbers = []
         text = self.letter_to_number(values["text_body"])
         phone = []
         counter = 0
@@ -133,10 +133,10 @@ class Scraper:
                 phone = [] #consider handling measurements
         for number in possible_numbers:
             if self.verify_phone_number(number):
-                values["phone_number"].append(number)
-        return values
+                phone_numbers.append(number)
+        return phone_numbers
     
-    def scrape(self,links=[],auto_learn=False,long_running=False,translator=False):
+    def scrape(self,links=[],translator=False):
         responses = []
         values = {}
         data = []
@@ -150,27 +150,13 @@ class Scraper:
                 links = html.xpath("//div[@class='cat']/a/@href")
                 for link in links:
                     if len(self.base_urls) > 1 or len(self.base_urls[0]) > 3:
-                        time.sleep(random.randint(1,2))
-                        if long_running:
-                            time.sleep(random.randint(5,27))
+                        time.sleep(random.randint(5,27))
                     try:
                         responses.append(requests.get(link))
                         print link
                     except requests.exceptions.ConnectionError:
                         print "hitting connection error"
                         continue
-        else:
-            for link in links:
-                if len(self.base_urls) > 1 or len(self.base_urls[0]) > 3:
-                    time.sleep(random.randint(1,2))
-                    if long_running:
-                        time.sleep(random.randint(5,17))
-                try:
-                    responses.append(requests.get(link))
-                    print link
-                except requests.exceptions.ConnectionError:
-                    print "hitting connection error"
-                    continue
 
         for r in responses:
             text = r.text
@@ -194,8 +180,7 @@ class Scraper:
             values["language"] = body_blob.detect_language() #requires the internet - makes use of google translate api
             values["polarity"] = body_blob.polarity
             values["subjectivity"] = body_blob.sentiment[1]
-            translated = translator or values["language"] == "es" #this is bad, fix this.
-            if translated:
+            if values["language"] != "en" and not translator:
                 values["translated_body"] = body_blob.translate(from_lang="es")
                 values["translated_title"] = title_blob.translate(from_lang="es")
             else:
@@ -203,11 +188,6 @@ class Scraper:
                 values["translated_title"] = "none"
             text_body = values["text_body"]
             title = values["title"]
-
-            #why is this a boolean?
-            if translated:
-                text_body = values["translated_body"]
-                title = values["translated_title"]
 
             if auto_learn:
                 
@@ -239,27 +219,8 @@ class Scraper:
             else:
                 values["trafficking"] = "not_found"
 
-            #why am I doing this?
-            #the point of this is to keep track of keywords that are passed in from the user.
-            #perhaps this should stay?
-            values["child_urls"] = []
-            for keyword in self.child_keywords:
-                if keyword in text_body:
-                    values["child_urls"].append(values["link"])
-                elif keyword in title:
-                    values["child_urls"].append(values["link"])
 
-            values["trafficking_urls"] = []
-            for keyword in self.trafficking_keywords:
-                if keyword in text_body:
-                    values["trafficking_urls"].append(values["link"])
-                elif keyword in title:
-                    values["trafficking_urls"].append(values["link"])
-
-            #this looks fine...
-            values["new_keywords"].append(self.pull_keywords(text_body))
-            values["new_keywords"].append(self.pull_keywords(title))
-            values = self.phone_number_parse(values)
+            values["phone_numbers"] = self.phone_number_parse(values)
             #this might need to stay until I can figure out how to
             #pass python datastructures to postgres...
             #also, there maybe another way to deal with this generally....perhaps a database that acts like a dictionary?
@@ -274,15 +235,9 @@ class Scraper:
         return data
 
     def pull_keywords(self,text):
-        #to do, get a list of common words we don't care about and use those instead of this terrible hacking thing
-        #this is terrible, fix it!!!
-        text = text.lower()
-        ignore_words = ["and","or","to","an","to","like","all","am","your","I","who"," ",'']
-        new_text = []
-        for word in text.split(" "):
-            if not word in ignore_words:
-                new_text.append(word)
-        return new_text
+        """This method should remove any very common english words like 
+        the, and and other statistically common words for english language"""
+        pass
 
     def save_ads(self,data):
         crud = CRUD("sqlite:///database.db",table="ads")
