@@ -11,13 +11,14 @@ from textblob import TextBlob
 import os
 import pickle
 from models import CRUD,Ads,TrainData,KeyWords
-
-
+from sklearn.metrics.pairwise import linear_kernel
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 #a web scraper, for local computation
 #At present, this seems to work fine
 class Scraper:
     def __init__(self,
+                 place=None,
                  base_urls=[
                      "http://newyork.backpage.com/FemaleEscorts/",
                      "http://newyork.backpage.com/BodyRubs/",
@@ -31,10 +32,58 @@ class Scraper:
                  child_keywords=[],
                  trafficking_keywords=[]
     ):
-        self.base_urls = base_urls
+        if place:
+            self.base_urls = self.map_place(place)
+        else:
+            self.base_urls = base_urls
         self.child_keywords = child_keywords
         self.trafficking_keywords = trafficking_keywords
 
+    def generate_pages(self,url):
+        urls = []
+        endings = [
+            "FemaleEscorts/",
+            "BodyRubs/",
+            "Strippers/",
+            "Domination/",
+            "TranssexualEscorts/",
+            "MaleEscorts/",
+            "Datelines/",
+            "AdultJobs/"
+        ]
+        for ending in endings:
+            urls.append(url+ending)
+        return urls
+    
+    def map_place(self,place):
+        places = {
+            "alabama":self.generate_pages("http://alabama.backpage.com/")
+            "manhattan":self.generate_pages("http://manhattan.backpage.com/"),
+            "new york":self.generate_pages("http://newyork.backpage.com/"),
+            "new york city":self.generate_pages("http://manhattan.backpage.com/")+self.generate_pages("http://statenisland.backpage.com/")+self.generate_pages("http://queens.backpage.com/")+self.generate_pages("http://brooklyn.backpage.com/")+self.generate_pages("http://bronx.backpage.com/")
+            "buffalo":self.generate_pages("http://buffalo.backpage.com/"),
+            "albany new york":self.generate_pages("http://albany.backpage.com/"),
+            "binghamton":self.generate_pages("http://binghamton.backpage.com/"),
+            "catskills":self.generate_pages("http://catskills.backpage.com/"),
+            "chautauqua":self.generate_pages("http://chautauqua.backpage.com/"),
+            "elmira":self.generate_pages("http://elmira.backpage.com/"),
+            "fairfield":self.generate_pages("http://fairfield.backpage.com/"),
+            "fingerlakes":self.generate_pages("http://fingerlakes.backpage.com/"),
+            "glens falls":self.generate_pages("http://glensfalls.backpage.com/"),
+            "hudson valley":self.generate_pages("http://hudsonvalley.backpage.com/"),
+            "ithaca":self.generate_pages("http://ithaca.backpage.com/"),
+            "long island":self.generate_pages("http://longisland.backpage.com/"),
+            "oneonta":self.generate_pages("http://oneonta.backpage.com/"),
+            "plattsburgh":self.generate_pages("http://plattsburgh.backpage.com/"),
+            "potsdam":self.generate_pages("http://plattsburgh.backpage.com/"),
+            "rochester":self.generate_pages("http://plattsburgh.backpage.com/"),
+            "syracuse":self.generate_pages("http://plattsburgh.backpage.com/"),
+            "twintiers":self.generate_pages("http://twintiers.backpage.com/"),
+            "utica":self.generate_pages("http://utica.backpage.com/"),
+            "watertown":self.generate_pages("http://watertown.backpage.com/"),
+            "westchester":self.generate_pages("http://watertown.backpage.com/")
+        }
+        
     def letter_to_number(self,text):
         text= text.upper()
         text = text.replace("ONE","1")
@@ -161,11 +210,13 @@ class Scraper:
                 title = values["translated_title"]
 
             if auto_learn:
+                
                 train_crud = CRUD("sqlite:///database.db",TrainData,"training_data")
                 train = train_crud.get_all() 
                 train = [(elem.text,"trafficking") for elem in train]
                 #to do: add data for not trafficking
                 cls = []
+                #make use of tdf-idf here
                 cls.append(NBC(train))
                 cls.append(DTC(train))
 
