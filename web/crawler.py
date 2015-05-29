@@ -58,6 +58,7 @@ class Scraper:
         return urls
     
     def map_place(self,place):
+        #I believe this is lazy evaluation, otherwise, I'm kinda dumb...
         places = {
             "alabama":self.generate_pages("http://alabama.backpage.com/"),
             "manhattan":self.generate_pages("http://manhattan.backpage.com/"),
