@@ -68,7 +68,6 @@ class Ads(Base):
     translated_body=Column(String(10000),nullable=True)
     translated_title=Column(String(10000),nullable=False)
     subjectivity=Column(Float(0),nullable=False)
-    network=Column(String(10000),nullable=False)
     posted_at = Column(String(10000),nullable=True) #ToDo, look up how to do this correctly - make use of DateTime
     
     
