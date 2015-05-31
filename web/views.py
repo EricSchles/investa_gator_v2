@@ -6,7 +6,7 @@ from web import app
 from multiprocessing import Process
 
 scraper = Scraper()
-investigate = Process(target=scraper.investigate())
+investigate = Process(target=scraper.investigate)
 
 @app.route("/",methods=["GET","POST"])
 def index():
@@ -16,7 +16,7 @@ def index():
 
 @app.route("/run",methods=["GET","POST"])
 def run():
-    data = scraper.scrape(auto_learn=True)
+    data = scraper.scrape(links=["http://www.backpage.com"])
     return redirect(url_for("index"))
 
 @app.route("/investigate",methods=["GET","POST"])

@@ -7,23 +7,21 @@
 <form method="post" action="{{url_for('investigator')}}">
 <table >
   <tr>
-   <td><input type="radio" value="long" name="long_running"> Run a long running investigation</td>
-  </tr>
-  <tr>
-   <td> <input type="radio" value="short" name="long_running"> Run a short investigation
-   </td>
-  </tr>
-  <tr>
-   <td> <label>Enter a password to start an investigation</label>
+   <td><label>Enter a place to scrape</label></td>
   </tr>
   <tr>   
    <td> <input type="text" name="place"></input></td>
   </tr>
   <tr>
-   <td> <input type="submit"> </td>
+   <td> <input type="submit" value="Start Scraping"></td>
   </tr>
  </table>
 </form>
+
+<form method="post" action="{{url_for('stop_investigation')}}">
+<input type="submit" value="Stop Scraping"
+</form>
+
 <br />
 <form method="post" action="{{url_for('run')}}">
  
