@@ -57,6 +57,7 @@ class TrainData(Base):
 class Ads(Base):
     __tablename__ = 'ads'
     id = Column(Integer,primary_key=True)
+    investigation = Column(String(1000),nullable=False)
     phone_numbers = Column(String(10000),nullable=True)
     title = Column(String(400),nullable=False)
     text_body = Column(String(10000),nullable=True)

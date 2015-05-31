@@ -38,10 +38,12 @@ def add():
 
 @app.route("/add_data",methods=["GET","POST"])
 def add_data():
-    investigation_type = request.form.get("investigation_type")
-    url = request.form.get("url_list")
-    urls = url.split(",")
-    print scraper.initial_scrape(links=urls)
+    if request.method=="POST":
+        investigation_type = request.form.get("investigation_type")
+        url = request.form.get("url_list")
+        urls = url.split(",")
+        print scraper.initial_scrape(links=urls)
+        scraper.update_investigation(urls)
     return redirect(url_for("index"))
 
 #add routes for visualization of existing datasources

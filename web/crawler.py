@@ -17,7 +17,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 #a web scraper, for local computation
 #At present, this seems to work fine
 class Scraper:
-    def __init__(self,place=None):
+    def __init__(self,place=None,investigation=None):
         if place:
             self.base_urls = self.map_place(place)
         else:
@@ -31,7 +31,10 @@ class Scraper:
                 "http://newyork.backpage.com/Datelines/",
                 "http://newyork.backpage.com/AdultJobs/"
             ]
-
+        if investigation:
+            self.investigation = investigation
+    def update_investigation(self,investigation):
+        self.investigation = investigation
     def update_place(self,place):
         self.base_urls = self.map_place(place)
 
@@ -104,7 +107,7 @@ class Scraper:
 
     def verify_phone_number(self,number):
         data = pickle.load(open("twilio.creds","r"))
-        r = requests.get("http://lookups.twilio.com/v1/PhoneNumbers/5165789423",auth=data)
+        r = requests.get("http://lookups.twilio.com/v1/PhoneNumbers/"+number,auth=data)
         if "status_code" in json.loads(r.content).keys():
             return False
         else:
@@ -219,7 +222,8 @@ class Scraper:
     def initial_scrape(self,links):
         data = self.scrape(links)
         self.save_ads(data)
-        
+        return data
+    
     def pull_keywords(self,text):
         """This method should remove any very common english words like 
         the, and and other statistically common words for english language"""
