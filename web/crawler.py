@@ -14,6 +14,21 @@ from models import CRUD,Ads,TrainData,KeyWords
 from sklearn.metrics.pairwise import linear_kernel
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+def doc_comparison(new_document,doc_list):
+    total = 0.0
+    for doc in doc_list:
+        total += consine_similarity(new_document,doc)[1]
+    if total/len(doc_list) > 0.5: #play with this
+        return "trafficking"
+    else:
+        return "not trafficking"
+    
+def cosine_similarity(documentA,documentB):
+    docs = [documentA,documentB]
+    tfidf = TfidfVectorizer().fit_transform(docs) 
+    cosine_similarities = linear_kernel(tfidf[0:1], tfidf).flatten() 
+    return cosine_similarities
+
 #a web scraper, for local computation
 #At present, this seems to work fine
 class Scraper:
@@ -146,20 +161,25 @@ class Scraper:
     def investigate(self):
         
         data = self.scrape(self.base_urls)
+        train_crud = CRUD("sqlite:///database.db",Ads,"ads")
+        #getting dummy data from http://www.dummytextgenerator.com/#jump
+        dummy_crud = CRUD("sqlite:///database.db",TrainData,"training_data")
+        train = train_crud.get_all()
+        dummy = dummy_crud.get_all()
+        t_docs = [elem.text for elem in train_crud.get_all()] #all documents with trafficking
+        train = [(elem.text,"trafficking") for elem in train] + [(elem.text,"not trafficking") for elem in dummy]
+        cls = []
+        #make use of tdf-idf here
+        #add in this example: http://scikit-learn.org/0.11/auto_examples/document_classification_20newsgroups.html
+        cls.append(NBC(train))
+        cls.append(DTC(train))
         for datum in data:
-            train_crud = CRUD("sqlite:///database.db",Ads,"ads")
-            #getting dummy data from http://www.dummytextgenerator.com/#jump
-            dummy_crud = CRUD("sqlite:///database.db",TrainData,"training_data")
-            train = train_crud.get_all()
-            dummy = dummy_crud.get_all()
-            train = [(elem.text,"trafficking") for elem in train] + [(elem.text,"not trafficking") for elem in dummy]
-            cls = []
-            #make use of tdf-idf here
-            cls.append(NBC(train))
-            cls.append(DTC(train))
             for cl in cls:
                 if cl.classify(datum["text_body"]) == "trafficking":
                     self.save_ads([datum])
+            #so I don't have to eye ball things
+            if doc_comparison(datum["text_body"],t_docs) == "trafficking":
+                self.save_ads([datum])
         time.sleep(700) # wait ~ 12 minutes
         self.investigate() #this is an infinite loop, which I am okay with.
                     
