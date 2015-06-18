@@ -106,6 +106,22 @@ class Scraper:
         }
         return places[place]
         
+
+    def doc_comparison(self,new_document,doc_list):
+        total = 0.0
+        for doc in doc_list:
+            total += self.consine_similarity(new_document,doc)[1]
+        if total/len(doc_list) > 0.5: #play with this
+            return "trafficking"
+        else:
+            return "not trafficking"
+
+    def cosine_similarity(self,documentA,documentB):
+        docs = [documentA,documentB]
+        tfidf = TfidfVectorizer().fit_transform(docs) 
+        cosine_similarities = linear_kernel(tfidf[0:1], tfidf).flatten() 
+        return cosine_similarities
+
     def letter_to_number(self,text):
         text= text.upper()
         text = text.replace("ONE","1")
@@ -149,10 +165,10 @@ class Scraper:
 
             if len(phone) == 10 and phone[0] != '1':
                 possible_numbers.append(''.join(phone))
-                phone = [] #consider handling measurements
+                phone = phone[1:]
             if len(phone) == 11 and phone[0] == '1':
                 possible_numbers.append(''.join(phone))
-                phone = [] #consider handling measurements
+                phone = phone[1:]
         for number in possible_numbers:
             if self.verify_phone_number(number):
                 phone_numbers.append(number)
@@ -177,9 +193,14 @@ class Scraper:
             for cl in cls:
                 if cl.classify(datum["text_body"]) == "trafficking":
                     self.save_ads([datum])
+<<<<<<< HEAD
             #so I don't have to eye ball things
             if doc_comparison(datum["text_body"],t_docs) == "trafficking":
                 self.save_ads([datum])
+=======
+                if self.doc_comparison(datum["text_body"],t_docs) == "trafficking":
+                    self.save_ads([datum])
+>>>>>>> 2dcd24b84ec0fe776eaf8bae7d4215bb861c7f73
         time.sleep(700) # wait ~ 12 minutes
         self.investigate() #this is an infinite loop, which I am okay with.
                     
