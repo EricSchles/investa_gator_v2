@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+
+
+<h2>Add new advertisements to analyze</h2>
+<form method="post" action="{{url_for('add_data')}}">
+<table>
+ <tr>
+  <td><label>List of Urls:</label></td>
+ </tr>
+<tr>
+ <td><textarea name="url_list" rows="15" cols="50"></textarea></td>
+</tr>
+<tr>
+ <td><input type="submit"></input></td>
+</tr>
+</table>
+</form>
+</body>
+</html>

@@ -1,34 +1,66 @@
 <!doctype html>
-<html>
-<head>
-</head>
-<body>
-<a href="/static/img/joke.jpg"><img height="250px" width="auto" src="/static/img/alligator.jpg"></a>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Foundation | Welcome</title>
+        <link rel="stylesheet" href="css/foundation.css" />
+        <script src="js/vendor/modernizr.js"></script>
+    </head>
+    <body>
+        <a href="/static/img/joke.jpg"><img height="250px" width="auto" src="/static/img/alligator.jpg"></a>
+
+        <h2>Add new advertisements to analyze</h2>
+        <form method="post" action="{{url_for('add_data')}}">
+            <table>
+                <tr>
+                    <td><label>List of Urls:</label></td>
+                </tr>
+                <tr>
+                    <td><textarea name="url_list" rows="15" cols="50"></textarea></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Submit List"></input>
+                <input type="reset" value="Clear List"></input>
+            </td>
+
+        </tr>
+    </table>
+</form>
 <form method="post" action="{{url_for('investigator')}}">
-<table >
-  <tr>
-   <td><label>Enter a place to scrape</label></td>
-  </tr>
-  <tr>   
-   <td> <input type="text" name="place"></input></td>
-  </tr>
-  <tr>
-   <td> <input type="submit" value="Start Scraping"></td>
-  </tr>
- </table>
+    <table >
+        <tr>
+            <td><label>Enter a location, zip code to scrape</label></td>
+        </tr>
+        <tr>   
+            <td> <input type="text" name="place"></input></td>
+    </tr>
+<tr>
+    <td> <input type="submit" value="Start Scraping"></td>
+</tr>
+</table>
 </form>
 
 <form method="post" action="{{url_for('stop_investigation')}}">
-<input type="submit" value="Stop Scraping"
+    <input type="submit" value="Stop Scraping">
 </form>
 
 <br />
 <form method="post" action="{{url_for('run')}}">
- 
- <label>Test out the scraper</label><br />
-<input type="submit" value="test run">
+
+    <label>Test out the scraper</label><br />
+    <input type="submit" value="test run">
 </form>
 
 <h3><a href="/add">Add some data</a></h3>
+
+
+
+<script src="js/vendor/jquery.js"></script>
+<script src="js/foundation.min.js"></script>
+<script>
+    $(document).foundation();
+</script>
 </body>
 </html>
