@@ -1,8 +1,8 @@
 /*!
- * Start Bootstrap - Grayscale Bootstrap Theme (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
+* Start Bootstrap - Grayscale Bootstrap Theme (http://startbootstrap.com)
+* Code licensed under the Apache License v2.0.
+* For details, see http://www.apache.org/licenses/LICENSE-2.0.
+*/
 
 body {
     width: 100%;
@@ -23,26 +23,25 @@ h3,
 h4,
 h5,
 h6 {
-    margin: 0 0 35px;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     letter-spacing: 1px;
+    text-align: center;
 }
 
 p {
-    margin: 0 0 25px;
     font-size: 18px;
     line-height: 1.5;
+    text-align: center;
 }
 
 @media(min-width:767px) {
     p {
-        margin: 0 0 35px;
         font-size: 20px;
         line-height: 1.6;
+        text-align: center;
     }
 }
-
 a {
     color: #219ab3;
     -webkit-transition: all .2s ease-in-out;
@@ -145,7 +144,7 @@ a:focus {
     padding: 100px 0;
     text-align: center;
     color: #fff;
-    background: url(intro-bg.jpg) no-repeat bottom center scroll;
+    background: url(/web/img/intro-bg.jpg) no-repeat bottom center scroll;
     background-color: #181818;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -153,13 +152,26 @@ a:focus {
     -o-background-size: cover;
 }
 
-.match{
+.scan{
     width: 100%;
     height: auto;
     padding: 100px 0;
     text-align:center;
     color: #fff;
-    background-color: #303030;
+    background-color: #000000;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.search{
+    width: 100%;
+    height: auto;
+    padding: 100px 0;
+    text-align:center;
+    color: #fff;
+    background-color: #202020;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -172,7 +184,7 @@ a:focus {
     padding: 100px 0;
     text-align:center;
     color: #fff;
-    background-color: #404040;
+    background-color: #303030;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -185,7 +197,7 @@ a:focus {
     padding: 100px 0;
     text-align:center;
     color: #fff;
-    background-color: #505050;
+    background-color: #404040;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -298,11 +310,31 @@ a:focus {
     padding-top: 100px;
 }
 
+.scan-section {
+    width: 100%;
+    padding: 50px 0;
+    color: #fff;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.search-section {
+    width: 100%;
+    padding: 50px 0;
+    color: #fff;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
 .about-section {
     width: 100%;
     padding: 50px 0;
     color: #fff;
-    background: url(downloads-bg.jpg) no-repeat center center scroll;
+    background: url(/web/img/downloads-bg.jpg) no-repeat center center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;

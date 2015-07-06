@@ -2,24 +2,24 @@
 <html class="no-js" lang="en">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Information form">
-        <meta name="author" content="email@website.com"> <!-- email goes here! -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content="Information form"/>
+        <meta name="author" content="email@website.com"/> <!-- email goes here! -->
 
         <title>InvestaGator</title>
         <link rel="shortcut icon" type="image/x-icon" href="img/gator.ico" />
 
         <!-- Bootstrap Core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
 
         <!-- Custom CSS -->
-        <link href="css/grayscale.css" rel="stylesheet">
+        <link href="css/grayscale.css" rel="stylesheet"/>
 
         <!-- Custom Fonts -->
-        <link href="font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-        <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+        <link href="font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+        <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -91,7 +91,7 @@
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
                             <h1 class="brand-heading">InvestaGator</h1>
-                            <p class="intro-text">InvestaGator is a web scrapping platform that scans websites for trafficked people and complies a searchable database from selected variables.</p>
+                            <p class="intro-text">InvestaGator is a web scraping platform that scans websites for trafficked people and complies a searchable database from selected variables.</p>
                             <a href="#about" class="btn btn-circle page-scroll" title="About">
                                 <i class="fa fa-angle-double-down animated"></i>
                             </a>
@@ -103,159 +103,155 @@
 
         <!-- Scan Section -->
         <header class="scan">
-            <section id="scan" class="container content-section text-center">
+            <section id="scan" class="container content-section text-center scan-section">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Scan</h2>
+                    <form method="post" action="{{url_for('add_data')}}">
+                        <h3>Add new advertisements to scrape.</h3>
+                        <p>URLs can be entered in the form of:</p>
+                        <ul style="list-style:none" class="list-group">
+                            <li>http://website.com, https://otherwebsite.com, http://finalwebsite.com </li>
+                            <h5>OR</h5> 
+                            <li>http://website.com</li>
+                            <li>https://otherwebsite.com</li>
+                            <li>http://finalwebsite.com</li>
+                        </ul>
+                        <div class="form-group">
+                            <label for="urls">Enter list of Urls:</label>
+                            <textarea name="url_list" class="form-control" rows="10"></textarea>
+                        </div>
+                        <input type="submit"  value="Submit URLs" class="btn-default">
+                        <input type="reset" value="Clear URLs" class="btn-default">
+                    </form>
+
+
+                </div>
+            </section>
+        </header>
+
+        <!-- Search Section -->
+        <header class="search">
+            <section id="search" class="container content-section text-center search-section">
                     <div class="col-lg-8 col-lg-offset-2">
-                        <h2>Scan</h2>
-                        <form method="post" action="{{url_for('add_data')}}">
-                            <h3>Add new advertisements to analyze</h3>
-                            <p>URLs can be entered in the form of:</p>
-                            <ul style="list-style:none" class="text-center">
-                                <li>http://website.com, https://otherwebsite.com, http://finalwebsite.com </li>
-                                <p></p>
-                            </ul>
-                            <h5>OR</h5>
-                            <ul style="list-style:none; margin-left:-500px;">
-                                <li>http://website.com</li>
-                                <li>https://otherwebsite.com</li>
-                                <li>http://finalwebsite.com</li>
-                            </ul>
-
-
-                            <p>List of Urls:</p>
-                            <textarea name="url_list"></textarea>
-                            <input type="submit"  value="Submit URLs">
-                            <input type="reset" value="Clear URLs">
-                        </form>
-
-
+                        <h2>Search</h2>
+                        <div class="img-wrap">
+                            <a href="image.file"><img src="image.file" height="300" width="300"></a>
+                            <a href="image.file"><img src="image.file" height="300" width="300"></a>
+                        </div>
                     </div>
                     </section>
                 </header>
 
-            <!-- Search Section -->
-            <header class="match">
-                <section id="match" class="container content-section text-center">
+
+            <!-- About Section -->
+            <header class="about">
+                <section id="about" class="container content-section text-center about-section">
                     <div class="row">
                         <div class="col-lg-8 col-lg-offset-2">
-                            <h2>Search</h2>
-                            <div class="img-wrap">
-                                <a href="image.file"><img src="image.file" height="300" width="300"></a>
-                                <a href="image.file"><img src="image.file" height="300" width="300"></a>
-                            </div>
+                            <h2>About Us</h2>
+                            <p>findMe is. etc. etc.</p>
                         </div>
-                        </section>
-                    </header>
-
-
-                <!-- About Section -->
-                <header class="about">
-                    <section id="about" class="container content-section text-center">
-                        <div class="row">
-                            <div class="col-lg-8 col-lg-offset-2">
-                                <h2>Aabout Us</h2>
-                                <p>findMe is. etc. etc.</p>
-                            </div>
-                        </div>
-                    </section>
-                </header>
-
-                <!-- Contact Section -->
-                <header class="contact">
-                    <section id="contact" class="container content-section text-center">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h2>Contact Us</h2>
-                                <p>Feel free to contact us if you have additional information.</p>
-                                <p class="message"></p>
-                                <form action="http://www.findme/jsonpform2email.php">
-                                    <div class="form-group">
-                                        <label>Name</label>
-                                        <input class="form-control" type="text" name="from" placeholder="Enter name"></div>
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <input class="form-control" type="text" name="from" placeholder="Enter email"></div>
-                                    <div class="form-group">
-                                        <label>Message</label>
-                                        <textarea class="form-control" name="message"></textarea>
-                                    </div>
-                                    <input type="submit" class="btn btn-default" name="submit" value="Send">
-                                </form>
-                            </div>
-                        </div>
-                    </section>
-                </header>
-
-
-
-
-
-
-                <div class="row" >
-
-
-
-                </div>
-                <div class="row">
-                    <form method="post" action="{{url_for('investigator')}}">
-                        <h1>Search Database</h1>
-                        <p>Enter a zipcode to search</p>
-                        <input type="text" name="place" placeholder="Zip Code" maxlength="5">
-                        <input type="submit" class="button" value="Start Scraping" style="float:left; margin-right: 4px">
-                    </form>
-                    <form method="post" action="{{url_for('stop_investigation')}}">
-                        <input type="reset" class="button alert" value="Stop Scraping">
-                    </form>
-                </div>
-                <div class="row">
-                    <h1>Test the scraper</h1>
-                    <input type="submit" class="button" value="Test Run">
-                    <h3><a href="/add">Add some data</a></h3>
-                </div>
-
-                <footer>
-                    <div class="container text-center">
-                        <p>Copyright &copy; 2014</p>
                     </div>
-                </footer>
+                </section>
+            </header>
 
-                <!-- jQuery -->
-                <script src="js/jquery.js"></script>
+            <!-- Contact Section -->
+            <header class="contact">
+                <section id="contact" class="container content-section text-center">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Contact Us</h2>
+                            <p>Feel free to contact us if you have additional information.</p>
+                            <p class="message"></p>
+                            <form action="http://www.findme/jsonpform2email.php">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input class="form-control" type="text" name="from" placeholder="Enter name"></div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input class="form-control" type="text" name="from" placeholder="Enter email"></div>
+                                <div class="form-group">
+                                    <label>Message</label>
+                                    <textarea class="form-control" name="message"></textarea>
+                                </div>
+                                <input type="submit" class="btn btn-default" name="submit" value="Send">
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </header>
 
-                <!-- Bootstrap Core JavaScript -->
-                <script src="js/bootstrap.min.js"></script>
 
-                <!-- Plugin JavaScript -->
-                <script src="js/jquery.easing.min.js"></script>
 
-                <!-- Custom Theme JavaScript -->
-                <script src="js/grayscale.js"></script>
-                <script src="navbarcustom.js"></script>
 
-                <script>
-                    /* jsonp form to email function */
-                    /* jsonp form to email function */
-                    $('form').submit(function() {
-                        var url = $(this).attr("action");
-                        var params = $(this).serialize();
 
-                        $.getJSON(url + '?' + params + "&callback=?", function(data) {
-                            switch(data[0].status){
-                                case 'success':
-                                    $('.message').addClass("text-success").html('Thank you, <strong>' + data[0].from + '</strong>,!');
-                                    $('form')[0].reset();
-                                    break;
-                                case 'invalid email':
-                                    $('.message').removeClass("text-success").addClass("text-danger").html('Please provide a valid email address!');
-                                    break;
-                                case 'failed to send':
-                                    $('.message').removeClass("text-success").addClass("text-danger").html('Failed to send email.');
-                                    break;
-                            }
-                        });
-                        return false;
+
+            <div class="row" >
+
+
+
+            </div>
+            <div class="row">
+                <form method="post" action="{{url_for('investigator')}}">
+                    <h1>Search Database</h1>
+                    <p>Enter a zipcode to search</p>
+                    <input type="text" name="place" placeholder="Zip Code" maxlength="5">
+                    <input type="submit" class="button" value="Start Scraping" style="float:left; margin-right: 4px">
+                </form>
+                <form method="post" action="{{url_for('stop_investigation')}}">
+                    <input type="reset" class="button alert" value="Stop Scraping">
+                </form>
+            </div>
+            <div class="row">
+                <h1>Test the scraper</h1>
+                <input type="submit" class="button" value="Test Run">
+                <h3><a href="/add">Add some data</a></h3>
+            </div>
+
+            <footer>
+                <div class="container text-center">
+                    <p>Copyright &copy; 2014</p>
+                </div>
+            </footer>
+
+            <!-- jQuery -->
+            <script src="js/jquery.js"></script>
+
+            <!-- Bootstrap Core JavaScript -->
+            <script src="js/bootstrap.min.js"></script>
+
+            <!-- Plugin JavaScript -->
+            <script src="js/jquery.easing.min.js"></script>
+
+            <!-- Custom Theme JavaScript -->
+            <script src="js/grayscale.js"></script>
+            <script src="navbarcustom.js"></script>
+
+            <script>
+                /* jsonp form to email function */
+                /* jsonp form to email function */
+                $('form').submit(function() {
+                    var url = $(this).attr("action");
+                    var params = $(this).serialize();
+
+                    $.getJSON(url + '?' + params + "&callback=?", function(data) {
+                        switch(data[0].status){
+                            case 'success':
+                                $('.message').addClass("text-success").html('Thank you, <strong>' + data[0].from + '</strong>,!');
+                                $('form')[0].reset();
+                                break;
+                            case 'invalid email':
+                                $('.message').removeClass("text-success").addClass("text-danger").html('Please provide a valid email address!');
+                                break;
+                            case 'failed to send':
+                                $('.message').removeClass("text-success").addClass("text-danger").html('Failed to send email.');
+                                break;
+                        }
                     });
-                </script>
+                    return false;
+                });
+            </script>
 
 
-                </body>
-            </html>
+            </body>
+        </html>
