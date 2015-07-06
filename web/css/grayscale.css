@@ -29,6 +29,7 @@ h6 {
     text-align: center;
 }
 
+
 p {
     font-size: 18px;
     line-height: 1.5;
@@ -178,7 +179,8 @@ a:focus {
     -o-background-size: cover;
 }
 
-.about{
+
+.test{
     width: 100%;
     height: auto;
     padding: 100px 0;
@@ -191,13 +193,25 @@ a:focus {
     -o-background-size: cover;
 }
 
+.about{
+    width: 100%;
+    height: auto;
+    text-align:center;
+    color: #fff;
+    background-color: #404040;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
 .contact{
     width: 100%;
     height: auto;
     padding: 100px 0;
     text-align:center;
     color: #fff;
-    background-color: #404040;
+    background-color: #505050;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -330,6 +344,16 @@ a:focus {
     -o-background-size: cover;
 }
 
+.test-section {
+    width: 100%;
+    padding: 50px 0;
+    color: #fff;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
 .about-section {
     width: 100%;
     padding: 50px 0;
@@ -440,3 +464,5 @@ img::-moz-selection {
 body {
     webkit-tap-highlight-color: rgba(255,255,255,.2);
 }
+
+form { display: inline-block; }
