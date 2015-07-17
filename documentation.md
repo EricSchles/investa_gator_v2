@@ -27,19 +27,19 @@ Unfortunately there is no "standard" way to install a c++ compiler on windows.  
 
 You can either install these packages seperately or just make use of the requirements file that comes with this repo, up to you.  In the interest of completeness I include the dependencies here.
 
-lxml.html
-requests
-unidecode
-textblob
-nltk
-Flask-SQLAlchemy
-SQLAlchemy
-sklearn
-numpy
-pandas
-Flask
-scipy
-networkx
+* lxml.html
+* requests
+* unidecode
+* textblob
+* nltk
+* Flask-SQLAlchemy
+* SQLAlchemy
+* sklearn
+* numpy
+* pandas
+* Flask
+* scipy
+* networkx
 
 Please note the requirements file has some other packages that I just think everyone should have, but aren't essential for this project :)  Feel free to use the minimial-requirements.txt file if you just want those.
 
