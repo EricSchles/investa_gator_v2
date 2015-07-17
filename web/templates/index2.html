@@ -12,13 +12,13 @@
     <title>findMe</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/grayscale.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/grayscale.css' ) }}" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='font-awesome-4.2.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 
@@ -29,6 +29,9 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style type="text/css">
+    body {
+      background-image: "{{ url_for('static',filename='img/intro-bg.jpg') }}"
+    }
     .img-wrap, h1 {
         text-align: center;
     }
@@ -160,17 +163,17 @@
     </footer>
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="{{url_for('static',filename='js/jquery.js') }}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.min.js') }}"></script>
 
     <!-- Plugin JavaScript -->
-    <script src="js/jquery.easing.min.js"></script>
+    <script src="{{url_for('static', filename='js/jquery.easing.min.js' ) }}"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="js/grayscale.js"></script>
-    <script src="navbarcustom.js"></script>
+    <script src="{{ url_for('static', filename='js/grayscale.js')}}"></script>
+    <script src="{{url_for('static', filename='navbarcustom.js')}}"></script>
 
     <script>
   /* jsonp form to email function */
