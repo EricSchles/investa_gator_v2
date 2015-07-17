@@ -41,3 +41,5 @@ Flask
 scipy
 networkx
 
+Please note the requirements file has some other packages that I just think everyone should have, but aren't essential for this project :)  Feel free to use the minimial-requirements.txt file if you just want those.
+
