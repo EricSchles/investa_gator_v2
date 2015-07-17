@@ -14,6 +14,10 @@ def index():
     #keywords found
     return render_template("index.html")
 
+@app.route("/index2",methods=["GET","POST"])
+def index2():
+    return render_template("index2.html")
+
 @app.route("/run",methods=["GET","POST"])
 def run():
     data = scraper.scrape(links=["http://www.backpage.com"])
