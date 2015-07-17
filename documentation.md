@@ -49,4 +49,11 @@ To install the dependencies you can do:
 
 You could also go through and type out `sudo pip install [package name]`.  Totally your choice :)
 
+###Extra set up stuff
+
+Once you have everything dowloaded, you'll still need to do a few things:
+
+1) create the database
+2) download the nltk corpus
+
 
