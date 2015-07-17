@@ -4,6 +4,8 @@ Welcome to the documentation for investa_gator.  The intention of this tool is t
 
 ##Installation
 
+###C++
+
 Unfortunately, at present there are quiet a few dependecies to using the tool.
 
 1) A c++ compiler - if you are on ubuntu or mac this is pretty easy to get:
@@ -19,7 +21,23 @@ Download and install xcode [instructions here](https://developer.apple.com/xcode
 
 __on__ __windows__:
 
-Unfortunately there is no "standard" way to install a c++ compiler on windows.  There are a number of options.
+Unfortunately there is no "standard" way to install a c++ compiler on windows.  There are a number of options.  I recommend install cygwin and making use of there installer to get g++.  But you could also get visual studios and then make use of the c++ compiler that comes with it.  
 
-I recommend install cygwin and making use of there installer to get g++.  But you could also get visual studios and then make use of the c++ compiler that comes with it.  
+###Python packages
+
+You can either install these packages seperately or just make use of the requirements file that comes with this repo, up to you.  In the interest of completeness I include the dependencies here.
+
+lxml.html
+requests
+unidecode
+textblob
+nltk
+Flask-SQLAlchemy
+SQLAlchemy
+sklearn
+numpy
+pandas
+Flask
+scipy
+networkx
 
