@@ -58,7 +58,6 @@ pp==1.6.4
 protobuf==2.6.1
 pyOpenSSL==0.13
 pycrypto==2.6.1
-pycups==1.9.66
 pycurl==7.19.3
 pygobject==3.12.0
 pyparsing==2.0.3
@@ -77,18 +76,14 @@ scikit-image==0.11.2
 scikit-learn==0.15.2
 scipy==0.15.1
 selenium==2.45.0
-sessioninstaller==0.0.0
-singledispatch==3.4.0.3
 six==1.5.2
 sklearn-pandas==0.0.10
 solrpy==0.9.7
 statsmodels==0.6.1
-system-service==0.1.6
 tabulate==0.7.5
 text-classify==0.0
 textblob==0.9.0
 tornado==4.1
-unity-lens-photos==1.0
 urllib3==1.7.1
 websocket==0.2.1
 wheel==0.24.0
