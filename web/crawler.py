@@ -14,6 +14,7 @@ from models import CRUD,Ads,TrainData,KeyWords
 from sklearn.metrics.pairwise import linear_kernel
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+#Todo move this out make use of text_classify
 def doc_comparison(new_document,doc_list):
     total = 0.0
     for doc in doc_list:
@@ -162,7 +163,7 @@ class Scraper:
                     phone = []
                     counter = 0
                     found = False
-
+	    #country codes can be two,three digits
             if len(phone) == 10 and phone[0] != '1':
                 possible_numbers.append(''.join(phone))
                 phone = phone[1:]

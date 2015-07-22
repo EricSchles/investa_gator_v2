@@ -33,6 +33,7 @@ def investigator():
 
 @app.route("/stop_investigation",methods=["GET","POST"])
 def stop_investigation():
+    #semantic bug here, fix this later (create a thread pool)
     investigate.terminate()
     return redirect(url_for("index"))
 
