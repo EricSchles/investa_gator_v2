@@ -138,7 +138,7 @@ class Scraper:
         return text
 
     def verify_phone_number(self,number):
-        #I know this worked at some point...
+        #I know this worked at some point...test this on other computer
         data = pickle.load(open("twilio.creds","r"))
         r = requests.get("http://lookups.twilio.com/v1/PhoneNumbers/"+number,auth=data)
         if "status_code" in json.loads(r.content).keys():
