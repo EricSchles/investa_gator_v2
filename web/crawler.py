@@ -138,6 +138,7 @@ class Scraper:
         return text
 
     def verify_phone_number(self,number):
+        #I know this worked at some point...
         data = pickle.load(open("twilio.creds","r"))
         r = requests.get("http://lookups.twilio.com/v1/PhoneNumbers/"+number,auth=data)
         if "status_code" in json.loads(r.content).keys():
@@ -205,27 +206,32 @@ class Scraper:
         time.sleep(700) # wait ~ 12 minutes
         self.investigate() #this is an infinite loop, which I am okay with.
                     
-    def scrape(self,links=[],translator=False):
+    def scrape(self,links=[],ads=True,translator=False):
         responses = []
         values = {}
         data = []
         
-        for link in links:
-            r = requests.get(link)
-            text = unidecode(r.text)
-            html = lxml.html.fromstring(text)
-
-            links = html.xpath("//div[@class='cat']/a/@href")
+        if ads:
             for link in links:
-                if len(self.base_urls) > 1 or len(self.base_urls[0]) > 3:
-                    time.sleep(random.randint(5,27))
-                try:
-                    responses.append(requests.get(link))
-                    print link
-                except requests.exceptions.ConnectionError:
-                    print "hitting connection error"
-                    continue
-                
+                r = requests.get(link)
+                responses.append(r)
+        else:
+            for link in links:
+                r = requests.get(link)
+                text = unidecode(r.text)
+                html = lxml.html.fromstring(text)
+
+                links = html.xpath("//div[@class='cat']/a/@href")
+                for link in links:
+                    if len(self.base_urls) > 1 or len(self.base_urls[0]) > 3:
+                        time.sleep(random.randint(5,27))
+                    try:
+                        responses.append(requests.get(link))
+                        print link
+                    except requests.exceptions.ConnectionError:
+                        print "hitting connection error"
+                        continue
+
         for r in responses:
             text = r.text
             html = lxml.html.fromstring(text)
