@@ -14,6 +14,7 @@ from models import CRUD,Ads,TrainData,KeyWords
 from sklearn.metrics.pairwise import linear_kernel
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+#Todo move this out make use of text_classify
 def doc_comparison(new_document,doc_list):
     total = 0.0
     for doc in doc_list:
@@ -137,6 +138,7 @@ class Scraper:
         return text
 
     def verify_phone_number(self,number):
+        #I know this worked at some point...
         data = pickle.load(open("twilio.creds","r"))
         r = requests.get("http://lookups.twilio.com/v1/PhoneNumbers/"+number,auth=data)
         if "status_code" in json.loads(r.content).keys():
@@ -162,7 +164,7 @@ class Scraper:
                     phone = []
                     counter = 0
                     found = False
-
+	    #country codes can be two,three digits
             if len(phone) == 10 and phone[0] != '1':
                 possible_numbers.append(''.join(phone))
                 phone = phone[1:]
@@ -198,30 +200,43 @@ class Scraper:
                 self.save_ads([datum])
                 if self.doc_comparison(datum["text_body"],t_docs) == "trafficking":
                     self.save_ads([datum])
+
+            #so I don't have to eye ball things
+            if doc_comparison(datum["text_body"],t_docs) == "trafficking":
+                self.save_ads([datum])
+
+                if self.doc_comparison(datum["text_body"],t_docs) == "trafficking":
+                    self.save_ads([datum])
+
         time.sleep(700) # wait ~ 12 minutes
         self.investigate() #this is an infinite loop, which I am okay with.
                     
-    def scrape(self,links=[],translator=False):
+    def scrape(self,links=[],ads=True,translator=False):
         responses = []
         values = {}
         data = []
         
-        for link in links:
-            r = requests.get(link)
-            text = unidecode(r.text)
-            html = lxml.html.fromstring(text)
-
-            links = html.xpath("//div[@class='cat']/a/@href")
+        if ads:
             for link in links:
-                if len(self.base_urls) > 1 or len(self.base_urls[0]) > 3:
-                    time.sleep(random.randint(5,27))
-                try:
-                    responses.append(requests.get(link))
-                    print link
-                except requests.exceptions.ConnectionError:
-                    print "hitting connection error"
-                    continue
-                
+                r = requests.get(link)
+                responses.append(r)
+        else:
+            for link in links:
+                r = requests.get(link)
+                text = unidecode(r.text)
+                html = lxml.html.fromstring(text)
+
+                links = html.xpath("//div[@class='cat']/a/@href")
+                for link in links:
+                    if len(self.base_urls) > 1 or len(self.base_urls[0]) > 3:
+                        time.sleep(random.randint(5,27))
+                    try:
+                        responses.append(requests.get(link))
+                        print link
+                    except requests.exceptions.ConnectionError:
+                        print "hitting connection error"
+                        continue
+
         for r in responses:
             text = r.text
             html = lxml.html.fromstring(text)
