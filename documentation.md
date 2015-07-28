@@ -90,7 +90,13 @@ Pattern finding:
 
 This set of todos involves understanding the larger patterns in the data set.  This means doing time series analysis, policy analysis, economic analysis, and a few other key things.  The idea here is to understand what are the determining factors that lead to rise and fall in the supply of commericial sex and what proportion of this commericial sex is human trafficking.  The idea is that magnitudinally human trafficking will be much lower than commericial sex, however proportionally, we can say that there is a correlation between commercial sex and human trafficking, this is verified by internal data, which unfortunately must be taken at face value.  
 
+Map making:
 
+The idea here is to take in a set of data, extract all information that could relate to geographic information - addresses, phone numbers, ip addresses, email addresses and map this to a lat/long and then map this to a location.  This visualization would tie into financial data and other data that human traffickers generate in due course.  The intention would be to visualization a story of time so that investigators could figure out what happened in minutes and then prosecute.  
+
+Providence generation:
+
+A custom database that stores documents and pulls out important information from said document on upload.  The document search engine does entity recognition and pulls out names, businesses, phone numbers, email addresses, social media account information, addresses, and other "hard attributes" automatically and generates a json object with all relevant information which can be shown to end users and automatically draws connections between documents.  
 
 
 
