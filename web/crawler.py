@@ -193,14 +193,11 @@ class Scraper:
             for cl in cls:
                 if cl.classify(datum["text_body"]) == "trafficking":
                     self.save_ads([datum])
-<<<<<<< HEAD
             #so I don't have to eye ball things
             if doc_comparison(datum["text_body"],t_docs) == "trafficking":
                 self.save_ads([datum])
-=======
                 if self.doc_comparison(datum["text_body"],t_docs) == "trafficking":
                     self.save_ads([datum])
->>>>>>> 2dcd24b84ec0fe776eaf8bae7d4215bb861c7f73
         time.sleep(700) # wait ~ 12 minutes
         self.investigate() #this is an infinite loop, which I am okay with.
                     
