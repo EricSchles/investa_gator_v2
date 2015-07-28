@@ -55,5 +55,9 @@ Once you have everything dowloaded, you'll still need to do a few things:
 
 1) create the database
 2) download the nltk corpus
+3) twilio credentials - you'll need to sign up for twilio and create your own creds there
+twilio.creds is of the form (username,password).  Both username and password are strings.  They were saved with pickle.  
+
+
 
 
