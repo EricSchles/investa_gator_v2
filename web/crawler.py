@@ -195,6 +195,11 @@ class Scraper:
             for cl in cls:
                 if cl.classify(datum["text_body"]) == "trafficking":
                     self.save_ads([datum])
+            #so I don't have to eye ball things
+            if doc_comparison(datum["text_body"],t_docs) == "trafficking":
+                self.save_ads([datum])
+                if self.doc_comparison(datum["text_body"],t_docs) == "trafficking":
+                    self.save_ads([datum])
 
             #so I don't have to eye ball things
             if doc_comparison(datum["text_body"],t_docs) == "trafficking":
