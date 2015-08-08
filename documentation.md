@@ -6,7 +6,7 @@ Welcome to the documentation for investa_gator.  The intention of this tool is t
 
 ###C++
 
-Unfortunately, at present there are quiet a few dependecies to using the tool.
+Unfortunately, at present there are quiet a few dependencies to using the tool.
 
 1) A c++ compiler - if you are on ubuntu or mac this is pretty easy to get:
 
@@ -23,9 +23,24 @@ __on__ __windows__:
 
 Unfortunately there is no "standard" way to install a c++ compiler on windows.  There are a number of options.  I recommend install cygwin and making use of there installer to get g++.  But you could also get visual studios and then make use of the c++ compiler that comes with it.  
 
+2) Download R [in here](https://www.r-project.org/)
+
+3) PyGobject
+
+__on__ __ubuntu__:
+`sudo apt-get install python-gi`
+
+__on__ __mac__:
+
+`sudo brew install pygobject`
+
+__on__ __windows__:
+
+Looks like you'll have to [install manually](http://sourceforge.net/projects/pygobjectwin32/)
+
 ###Python packages
 
-You can either install these packages seperately or just make use of the requirements file that comes with this repo, up to you.  In the interest of completeness I include the dependencies here.
+You can either install these packages separately or just make use of the requirements file that comes with this repo, up to you.  In the interest of completeness I include the dependencies here.
 
 * lxml.html
 * requests
@@ -41,7 +56,7 @@ You can either install these packages seperately or just make use of the require
 * scipy
 * networkx
 
-Please note the requirements file has some other packages that I just think everyone should have, but aren't essential for this project :)  Feel free to use the minimial-requirements.txt file if you just want those.
+Please note the requirements file has some other packages that I just think everyone should have, but aren't essential for this project :)  Feel free to use the minimum-requirements.txt file if you just want those.
 
 To install the dependencies you can do:
 
@@ -54,6 +69,14 @@ You can make use of my totally awesome custom installer (which leverages pip)
 `python install_requirements.py --ls =`
 
 You could also go through and type out `sudo pip install [package name]`.  Totally your choice :)
+
+###Quick run
+Check if you've installed everything properly!
+
+Type `python run.py` in your terminal
+
+Then visit `http://127.0.0.1:5000/` to see if everything is running as it should.
+
 
 ###Extra set up stuff
 
@@ -107,7 +130,7 @@ From this data we need to decide on appropriate criterion for a connection betwe
 
 Definition: entity - a post, like on backpage or craigslist or some other similar site; a profile or user account, like on okcupid, tinder, facebook, linkedin or a message board.
 
-* two entities sharing a phone number 
+* two entities sharing a phone number
 * two entities sharing the same email address
 * two entities sharing the same domain (assuming it's not gmail, yahoo or another extremely common one)
 * two entities sharing the same handle across multiple domains - this will only be true for messageboards/dating websites/twitter
@@ -152,7 +175,7 @@ All data are desireable at the national and local level
 	* jobs numbers
 	* proportion of skilled versus unskilled laborers
 	* distribution of wealth:
-		* percentage of wealthy versus poor 
+		* percentage of wealthy versus poor
 		* magnitude of wealth of top 1%,5%,10% compared to the bottom 50%
 * Demographic data:
 	* percentage of males/females in the population
@@ -198,8 +221,8 @@ All data are desireable at the national and local level
 	* Total number of posts per day - weekday/weekend
 	* number of unique users in sex work section
 	* number of ads in sex work section
-	* percentage of active versus inactive users in sex work section 
-	Definition: an active user is someone who is posting multiple times in a given day/week 
+	* percentage of active versus inactive users in sex work section
+	Definition: an active user is someone who is posting multiple times in a given day/week
 	Note: we may want to break this out into something more categorical/granular
 * Twitter:
 	* number of sex related conversations on twitter
@@ -270,8 +293,6 @@ To Dos here:
 
 Providence generation:
 
-A custom database that stores documents and pulls out important information from said document on upload.  The document search engine does entity recognition and pulls out names, businesses, phone numbers, email addresses, social media account information, addresses, and other "hard attributes" automatically and generates a json object with all relevant information which can be shown to end users and automatically draws connections between documents.  
+A custom database that stores documents and pulls out important information from said document on upload.  The document search engine does entity recognition and pulls out names, businesses, phone numbers, email addresses, social media account information, addresses, and other "hard attributes" automatically and generates a json object with all relevant information which can be shown to end users and automatically draws connections between documents.
 
 This is primarily a design project and the team working on this will need to come up with ideas on what needs to be done and how to do it.
-
-
