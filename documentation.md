@@ -82,10 +82,14 @@ Then visit `http://127.0.0.1:5000/` to see if everything is running as it should
 
 Once you have everything dowloaded, you'll still need to do a few things:
 
-1) create the database
-2) download the nltk corpus
-3) twilio credentials - you'll need to sign up for twilio and create your own creds there
-twilio.creds is of the form (username,password).  Both username and password are strings.  They were saved with pickle.  
+1. create the database:`python models.py`
+2. download the nltk corpus: `python -c "import nltk; nltk.download()"`
+3. twilio credentials - you'll need to sign up for twilio and create your own creds there
+twilio.creds is of the form (username,password).  Both username and password are strings.  They were saved with pickle.
+
+This can be achieved by creating a simple Python file with the follwing that you you will then run:
+```import pickle
+pickle.dump(("username","password"),open("twilio.creds","wb"))```
 
 ##ToDos:
 
