@@ -235,8 +235,9 @@ Heat Maps:
 		* on average how many users engage actively in content that could be human trafficking?
 		* on average how many users engage actively in content creation or generation that is anti-human trafficking?
 Classical statistics:
+
 	* How has the change in wealth, economic standing and quality of life lead to a change in the amount of sex trafficking on the internet?
-	
+
 	* What is the interplay between the amount of sex on the internet and the amount of sex trafficking on the internet?  How do they move together/how do they diverge?
 
 	* How do the number of mentorship opportunities effect the amount of sex trafficking that happens in an area?
@@ -247,7 +248,7 @@ Classical statistics:
 	* Time Series of wealth by distribution and rise of commerical sex on the internet in america
 	* Time Series of law statistics and rise of commerical sex on the internet in america
 	* Time Series of Law,economic factors,and housing factors against the amount of sex trafficking on the internet
-	* Time Series of the amount of Sex that is discussed on the internet and the amount of sex trafficking on the internet
+* Time Series of the amount of Sex that is discussed on the internet and the amount of sex trafficking on the internet
 
 
 Map making:
