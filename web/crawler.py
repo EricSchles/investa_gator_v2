@@ -228,6 +228,8 @@ class Scraper:
 
                 links = html.xpath("//div[@class='cat']/a/@href")
                 for link in links:
+                    #consider changing this...since we probably won't have that many base_urls but will be scraping a bunch of times
+                    #It should really be something having to do with a counter..
                     if len(self.base_urls) > 1 or len(self.base_urls[0]) > 3:
                         time.sleep(random.randint(5,27))
                     try:

@@ -62,6 +62,8 @@ twilio.creds is of the form (username,password).  Both username and password are
 
 Facial Recognition:
 
+###High Level
+
 To see what the Facial Recognition front end looks like head to the root of the project and type:
 
 `python run.py`
@@ -74,13 +76,49 @@ So this is our first to do - create a front end for uploading two sets of folder
 
 The second piece of this is building a database of missing persons pictures.  The other piece, building up a database of pictures from prostitution websites is easy (and basically already done).  All that needs to be done is creating a mechanism for efficiently storing and accessing these pictures, ideally from a database rather than a file system, for processing.  Another piece of this is downloading these pitures from the internet.
 
+###Specific tasks
+
+* Implementing Deep Learning Facial Recognition Algorithms
+* Finish the Facial Recognition Front End
+* Build a database of missing persons pictures
+* Improve accuracy of current opencv facial comparison algorithm by building a stronger dataset of faces
+* Improve the cbir's indexing by using binary search or something faster than linear search
+
+
 Social network analysis:
+
+This section of the project hasn't even been prototyped yet.  The ideal system will take in disperate data from social websites of a few categories:
+
+* facebook-like websites
+* okcupid-like websites
+* tinder-like phone apps
+* linkedin-like websites
+* Messageboard websites
+* craigslist/backpage websites
+* twitter-like websites
+* blogs
+
+From this data we need to decide on appropriate criterion for a connection between two entities, below are some suggestions on criterion:
+
+Definition: entity - a post, like on backpage or craigslist or some other similar site; a profile or user account, like on okcupid, tinder, facebook, linkedin or a message board.
+
+* two entities sharing a phone number - IE if two entities have the same phone number they are related
+* two entities sharing the same 
+And then create visualizations of that data:
+* Discrete Graph Visualization: The networkx/vincent graph visualization suite should be ideal for this kind of task.  However d3 may also be useful.
+* GIS Graph: For this I'd recommend either geodjango/postGIS or [this configuration of tools](https://2015.foss4g-na.org/sites/default/files/slides/Installation%20Guide_%20Spatial%20Data%20Analysis%20in%20Python.pdf)  
+* Classical Graphs and descriptive statistics: Here a combation of CSS type face and C3 is probably best
+
 
 There is a ton to do here in the following areas -
 
-implementing graph algorithms to do automated social network analysis
-create visualizations of said social networks
-decide on what constitutes a connection in a social network for the purposes of human trafficking.
+* decide on what constitutes a connection in a social network for the purposes of human trafficking.
+* implementing graph algorithms to do automated social network analysis
+* create visualizations of said social networks
+
+
+
+
 
 Visualization of data:
 
