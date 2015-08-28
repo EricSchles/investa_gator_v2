@@ -90,7 +90,6 @@ The second piece of this is building a database of missing persons pictures.  Th
 * Improve accuracy of current opencv facial comparison algorithm by building a stronger dataset of faces
 * Improve the cbir's indexing by using binary search or something faster than linear search
 
-
 Social network analysis:
 
 This section of the project hasn't even been prototyped yet.  The ideal system will take in disperate data from social websites of a few categories:
@@ -116,27 +115,31 @@ Definition: entity - a post, like on backpage or craigslist or some other simila
 * two entities sharing a close enough writing style
 
 Once we have a good notion of connection we should be able to do social network analysis:
-Because I am not an expert in SNA I don't know what the best algorithms to implement are.
-
-
-And then create visualizations of that data:
-* Discrete Graph Visualization: The networkx/vincent graph visualization suite should be ideal for this kind of task.  However d3 may also be useful.
-* GIS Graph: For this I'd recommend either geodjango/postGIS or [this configuration of tools](https://2015.foss4g-na.org/sites/default/files/slides/Installation%20Guide_%20Spatial%20Data%20Analysis%20in%20Python.pdf)  
-* Classical Graphs and descriptive statistics: Here a combation of CSS type face and C3 is probably best
-
+Because I am not an expert in SNA I don't know what the best algorithms to implement are.  My recommendation is to look at [networkx's algorithms section for ideas](https://networkx.github.io/documentation/latest/reference/index.html) also, note that networkx has an implementation of the page rank algorithm (which for some reason is not listed in the reference) that I would believe to be useful, this [code makes use of page rank](https://github.com/EricSchles/text_classify/blob/master/text_classify/textrank.py)
 
 Visualization of data:
 
-Using the existing tool, we essentially have the first step of any statistical analysis - the data.  Now we need a set of visualizations to understand and interpret the data.  This is an open question and should be up to the specific individuals developing the tools.  However further and directed analysis is probably wise here as well.
+Specific Infrastructure to dos:
+* create a flask-app for the data visualization:
+	* download and add all the necessary d3/c3 files to the static folder
+	* set up an api to feed into the visualizations
+	* set up templates for each visualization, where the fields are malliable
 
-
-
+* Specific Visualization to dos:
+	* Discrete Graph Visualization: The networkx/vincent graph visualization suite should be ideal for this kind of task.  However d3 may also be useful.
+	* GIS Graph: For this I'd recommend either geodjango/postGIS or [this configuration of tools](https://2015.foss4g-na.org/sites/default/files/slides/Installation%20Guide_%20Spatial%20Data%20Analysis%20in%20Python.pdf)  
+	* Classical Graphs and descriptive statistics: Here a combation of CSS type face and C3 is probably best
+		* bar charts
+		* pie charts
+		* time series charts
+		* line graphs
+		* scatter plots
 
 Pattern finding:
 
 This set of todos involves understanding the larger patterns in the data set.  This means doing time series analysis, policy analysis, economic analysis, and a few other key things.  The idea here is to understand what are the determining factors that lead to rise and fall in the supply of commericial sex and what proportion of this commericial sex is human trafficking.  The idea is that magnitudinally human trafficking will be much lower than commericial sex, however proportionally, we can say that there is a correlation between commercial sex and human trafficking, this is verified by internal data, which unfortunately must be taken at face value.  
 
-
+API Integrations
 
 Map making:
 
