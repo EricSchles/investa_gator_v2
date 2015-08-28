@@ -223,17 +223,18 @@ Human Trafficking does not happen in a vacuum it is the confluence of a number o
 Visualization:
 
 Heat Maps:
-	* a heat map of how sex conversations flow across users
-	* Questions:
-		* how do these conversations start?
-		* how do these conversations propagate from user to user?
-		* who are the central users to these conversations?
-		* on average how many users engage actively in a sexually related conversation?
-		* on average how many users engage actively in a sex work related conversation?
-		* on average how many users engage actively in a pro-sex work conversation?
-		* on average how many users engage actively in a anti-sex work conversation?
-		* on average how many users engage actively in content that could be human trafficking?
-		* on average how many users engage actively in content creation or generation that is anti-human trafficking?
+
+* A heat map of how sex conversations flow across users
+* Questions:
+	* how do these conversations start?
+	* how do these conversations propagate from user to user?
+	* who are the central users to these conversations?
+	* on average how many users engage actively in a sexually related conversation?
+	* on average how many users engage actively in a sex work related conversation?
+	* on average how many users engage actively in a pro-sex work conversation?
+	* on average how many users engage actively in a anti-sex work conversation?
+	* on average how many users engage actively in content that could be human trafficking?
+	* on average how many users engage actively in content creation or generation that is anti-human trafficking?
 
 Classical statistics:
 
