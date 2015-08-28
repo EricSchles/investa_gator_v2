@@ -134,21 +134,26 @@ Specific Infrastructure to dos:
 		* time series charts
 		* line graphs
 		* scatter plots
+	* other map ideas:
+		* coloring of different related entities
 
 Pattern finding:
 
 This set of todos involves understanding the larger patterns in the data set.  This means doing time series analysis, policy analysis, economic analysis, and a few other key things.  The idea here is to understand what are the determining factors that lead to rise and fall in the supply of commericial sex and what proportion of this commericial sex is human trafficking.  The idea is that magnitudinally human trafficking will be much lower than commericial sex, however proportionally, we can say that there is a correlation between commercial sex and human trafficking, this is verified by internal data, which unfortunately must be taken at face value.  
 
 API Integrations
-All data will be needed at the national and local level
+All data are desireable at the national and local level
 * Economic data:
-	* housing statistics
+	* housing statistics:
+		* number of housing starts
+		* percentage of low income housing to total housing
+		* number of houses
+		* number of apartments
 	* jobs numbers
 	* proportion of skilled versus unskilled laborers
 	* distribution of wealth:
 		* percentage of wealthy versus poor 
 		* magnitude of wealth of top 1%,5%,10% compared to the bottom 50%
-
 * Demographic data:
 	* percentage of males/females in the population
 	* percentage of people in each age group:
@@ -156,24 +161,114 @@ All data will be needed at the national and local level
 		* young adults
 		* middle aged/family age
 		* older
+	* race statistics - percentage of each ethnicity
+	* percentage of people with internet access:
+		* percentage with high speed internet
+		* dial up/ slow internet
+		* percentage without internet access
 * Law Statistics:
 	* Total violent amount of violent/non-violent crime
-	* percentage of violent versus non-violent crime
-	* number of gang arrests per year
-	* percentage change in the number of gang arrests from year to year
-	* 
+	* Percentage of violent versus non-violent crime
+	* Number of gang arrests per year
+	* Percentage change in the number of gang arrests from year to year
+	* Total number of prostitution arrests per year
+	* Total number of promoting arrests per year
+	* Total number of human trafficking arrests per year
+	* Total number of domestic violence cases per year
+	* Total number of minority deaths by police
+* Educational Statistics:
+	* Percentage of people graduating from middle school
+	* Percentage of people graduating from high school
+	* Percentage of people graduating from college
+	* Percentage of people graduating from a masters
+	* Percentage of people graduating from a PhD
+	* average reading scores on standardized tests over time
+	* average math scores on standardized tests over time
+	* comparison of local scores to national average
+* Other interesting statistics:
+	* number of charities operating in the area
+	* number of libraries per person
+	* number of schools per person
+	* number of hospitals per person
+	* number of afterschool non-profits per person
+	* ratio children under age of 18 to number mentors/youth volunteers
+	* number of superfund sites
+* Backpage/Craigslist:
+	* Number of sex work related posts per day - weekday/weekend
+	* Total number of posts per day - weekday/weekend
+	* number of unique users in sex work section
+	* number of ads in sex work section
+	* percentage of active versus inactive users in sex work section 
+	Definition: an active user is someone who is posting multiple times in a given day/week 
+	Note: we may want to break this out into something more categorical/granular
+* Twitter:
+	* number of sex related conversations on twitter
+	* number of sex work related conversations on twitter
+	* number of users who have discussed sex on twitter
+	* number of users who have discussed sex work on twitter
+	* number of pro-sex work users on twitter
+	* number of anti-sex work users on twitter
+	* percentage of sex related to sex work related conversations on twitter. Question - how often are these from the same users?
+	* percentage of sex work related conversations to anti-human trafficking conversations on twitter.
+* Facebook
+	* number of sex related groups
+		* number of members per group
+	* number of pimp groups
+		* number of members per group
+
+Why this data?
+
+Human Trafficking does not happen in a vacuum it is the confluence of a number of contributing factors that allow for the climate of sex trafficking to occur.  To understand how to address human trafficking from a policy level we need to know what contributing factors are the largest contributors and therefore building a understanding of human trafficking data and various socioeconomic-political factors will allows us to understand their correlation.
+
+Visualization:
+
+Heat Maps:
+	* a heat map of how sex conversations flow across users
+	* Questions:
+		* how do these conversations start?
+		* how do these conversations propagate from user to user?
+		* who are the central users to these conversations?
+		* on average how many users engage actively in a sexually related conversation?
+		* on average how many users engage actively in a sex work related conversation?
+		* on average how many users engage actively in a pro-sex work conversation?
+		* on average how many users engage actively in a anti-sex work conversation?
+		* on average how many users engage actively in content that could be human trafficking?
+		* on average how many users engage actively in content creation or generation that is anti-human trafficking?
+Classical statistics:
+	How has the change in wealth, economic standing and quality of life lead to a change in the amount of sex trafficking on the internet?
+	
+	What is the interplay between the amount of sex on the internet and the amount of sex trafficking on the internet?  How do they move together/how do they diverge?
+
+	How do the number of mentorship opportunities effect the amount of sex trafficking that happens in an area?
+	How do the number of mentorship opportunities effect the amount of Sex based conversations that happen in an area?
+
+	* Time Series of comparison of education and rise of commerical sex on the internet in america:
+		* various time series of each educational statistic against rise of commercial sex on in the internet
+	* Time Series of wealth by distribution and rise of commerical sex on the internet in america
+	* Time Series of law statistics and rise of commerical sex on the internet in america
+	* Time Series of Law,economic factors,and housing factors against the amount of sex trafficking on the internet
+	* Time Series of the amount of Sex that is discussed on the internet and the amount of sex trafficking on the internet
+
 
 Map making:
 
 The idea here is to take in a set of data, extract all information that could relate to geographic information - addresses, phone numbers, ip addresses, email addresses and map this to a lat/long and then map this to a location.  This visualization would tie into financial data and other data that human traffickers generate in due course.  The intention would be to visualization a story of time so that investigators could figure out what happened in minutes and then prosecute.  
 
-
-
+To Dos here:
+* set up geodjango app - https://github.com/EricSchles/pygotham_2015/blob/master/README.md
+* create a data standard for how to store:
+	* ip addresses
+	* phone numbers
+	* addresses
+	* email addresses
+	* lat/long
+* create parsers that will create canonical representations of each data point within an entity (as defined in the last step):
+	* These parses will do named-entity recognition on addresses, phone numbers, and lat/long
 
 Providence generation:
 
 A custom database that stores documents and pulls out important information from said document on upload.  The document search engine does entity recognition and pulls out names, businesses, phone numbers, email addresses, social media account information, addresses, and other "hard attributes" automatically and generates a json object with all relevant information which can be shown to end users and automatically draws connections between documents.  
 
-
+This is primarily a design project and the team working on this will need to come up with ideas on what needs to be done and how to do it.
 
 
