@@ -140,10 +140,33 @@ Pattern finding:
 This set of todos involves understanding the larger patterns in the data set.  This means doing time series analysis, policy analysis, economic analysis, and a few other key things.  The idea here is to understand what are the determining factors that lead to rise and fall in the supply of commericial sex and what proportion of this commericial sex is human trafficking.  The idea is that magnitudinally human trafficking will be much lower than commericial sex, however proportionally, we can say that there is a correlation between commercial sex and human trafficking, this is verified by internal data, which unfortunately must be taken at face value.  
 
 API Integrations
+All data will be needed at the national and local level
+* Economic data:
+	* housing statistics
+	* jobs numbers
+	* proportion of skilled versus unskilled laborers
+	* distribution of wealth:
+		* percentage of wealthy versus poor 
+		* magnitude of wealth of top 1%,5%,10% compared to the bottom 50%
+
+* Demographic data:
+	* percentage of males/females in the population
+	* percentage of people in each age group:
+		* children
+		* young adults
+		* middle aged/family age
+		* older
+* Law Statistics:
+	* Total violent amount of violent/non-violent crime
+	* percentage of violent versus non-violent crime
+	* number of gang arrests per year
+	* percentage change in the number of gang arrests from year to year
+	* 
 
 Map making:
 
 The idea here is to take in a set of data, extract all information that could relate to geographic information - addresses, phone numbers, ip addresses, email addresses and map this to a lat/long and then map this to a location.  This visualization would tie into financial data and other data that human traffickers generate in due course.  The intention would be to visualization a story of time so that investigators could figure out what happened in minutes and then prosecute.  
+
 
 
 
