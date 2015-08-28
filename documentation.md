@@ -47,6 +47,12 @@ To install the dependencies you can do:
 
 `sudo pip install -r requirements.txt`  _or_ `sudo pip install -r minimum-requirements.txt`
 
+OR
+
+You can make use of my totally awesome custom installer (which leverages pip)
+
+`python install_requirements.py --ls =`
+
 You could also go through and type out `sudo pip install [package name]`.  Totally your choice :)
 
 ###Extra set up stuff
@@ -102,35 +108,41 @@ From this data we need to decide on appropriate criterion for a connection betwe
 
 Definition: entity - a post, like on backpage or craigslist or some other similar site; a profile or user account, like on okcupid, tinder, facebook, linkedin or a message board.
 
-* two entities sharing a phone number - IE if two entities have the same phone number they are related
-* two entities sharing the same 
+* two entities sharing a phone number 
+* two entities sharing the same email address
+* two entities sharing the same domain (assuming it's not gmail, yahoo or another extremely common one)
+* two entities sharing the same handle across multiple domains - this will only be true for messageboards/dating websites/twitter
+* two entities sharing the same address across multiple domains
+* two entities sharing a close enough writing style
+
+Once we have a good notion of connection we should be able to do social network analysis:
+Because I am not an expert in SNA I don't know what the best algorithms to implement are.
+
+
 And then create visualizations of that data:
 * Discrete Graph Visualization: The networkx/vincent graph visualization suite should be ideal for this kind of task.  However d3 may also be useful.
 * GIS Graph: For this I'd recommend either geodjango/postGIS or [this configuration of tools](https://2015.foss4g-na.org/sites/default/files/slides/Installation%20Guide_%20Spatial%20Data%20Analysis%20in%20Python.pdf)  
 * Classical Graphs and descriptive statistics: Here a combation of CSS type face and C3 is probably best
 
 
-There is a ton to do here in the following areas -
-
-* decide on what constitutes a connection in a social network for the purposes of human trafficking.
-* implementing graph algorithms to do automated social network analysis
-* create visualizations of said social networks
-
-
-
-
-
 Visualization of data:
 
 Using the existing tool, we essentially have the first step of any statistical analysis - the data.  Now we need a set of visualizations to understand and interpret the data.  This is an open question and should be up to the specific individuals developing the tools.  However further and directed analysis is probably wise here as well.
+
+
+
 
 Pattern finding:
 
 This set of todos involves understanding the larger patterns in the data set.  This means doing time series analysis, policy analysis, economic analysis, and a few other key things.  The idea here is to understand what are the determining factors that lead to rise and fall in the supply of commericial sex and what proportion of this commericial sex is human trafficking.  The idea is that magnitudinally human trafficking will be much lower than commericial sex, however proportionally, we can say that there is a correlation between commercial sex and human trafficking, this is verified by internal data, which unfortunately must be taken at face value.  
 
+
+
 Map making:
 
 The idea here is to take in a set of data, extract all information that could relate to geographic information - addresses, phone numbers, ip addresses, email addresses and map this to a lat/long and then map this to a location.  This visualization would tie into financial data and other data that human traffickers generate in due course.  The intention would be to visualization a story of time so that investigators could figure out what happened in minutes and then prosecute.  
+
+
 
 Providence generation:
 
