@@ -1,6 +1,6 @@
 Cython==0.22
 Flask==0.10.1
-Jinja2==2.7.3
+Jinja2==2.11.3
 -e git+https://github.com/Lasagne/Lasagne.git@91aa9ec44fa5617a9b3e932cf9417bc39c7c14e3#egg=Lasagne-dev
 Markdown==2.6.2
 MarkupSafe==0.23
