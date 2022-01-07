@@ -22,7 +22,7 @@ certifi==14.05.14
 chardet==2.0.1
 colorama==0.2.5
 command-not-found==0.3
-cvxopt==1.1.7
+cvxopt==1.2.7
 debtagshw==0.1
 decorator==3.4.2
 defer==1.0.6
