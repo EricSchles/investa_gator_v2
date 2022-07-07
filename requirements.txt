@@ -70,7 +70,7 @@ pytz==2013b
 pyxdg==0.25
 pyzmq==14.6.0
 reportlab==3.0
-requests==2.2.1
+requests==2.20.0
 rpy2==2.5.6
 scikit-image==0.11.2
 scikit-learn==0.15.2
