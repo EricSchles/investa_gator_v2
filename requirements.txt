@@ -36,7 +36,7 @@ html5lib==0.999
 httplib2==0.8
 ipython==3.0.0
 itsdangerous==0.24
-joblib==0.8.4
+joblib==1.2.0
 jsonschema==2.4.0
 leveldb==0.193
 lockfile==0.8
