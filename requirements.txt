@@ -18,7 +18,7 @@ Werkzeug==0.10.4
 argparse==1.2.1
 backports.ssl-match-hostname==3.4.0.2
 bokeh==0.9.1
-certifi==14.05.14
+certifi==2022.12.7
 chardet==2.0.1
 colorama==0.2.5
 command-not-found==0.3
