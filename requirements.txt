@@ -86,5 +86,5 @@ textblob==0.9.0
 tornado==4.1
 urllib3==1.7.1
 websocket==0.2.1
-wheel==0.24.0
+wheel==0.38.1
 wsgiref==0.1.2
